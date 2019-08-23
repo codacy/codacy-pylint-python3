@@ -137,17 +137,26 @@ function(1)
 
     def test_no_conf(self):
         (config, sources) = python3_file()
-        expected_result = [Result('__init__.py',f'No module named','F0001',1),
-                          Result('E0102.py','method already defined line 5','E0102',9),
-                          Result('E0102.py','class already defined line 4','E0102',13),
-                          Result('E0102.py','function already defined line 17','E0102',21)]
-        result = withConfigAndSources('', sources)
-        self.assertIn(expected_result[0].message, result[0].message)
-        self.assertEqual(expected_result[0].filename, result[0].filename)
-        self.assertEqual(expected_result[0].patternId, result[0].patternId)
-        self.assertEqual(expected_result[0].line, result[0].line)
-        for i in range(1, len(result)):
-            self.assertEqual(result[i], expected_result[i])
+        expected_result = [
+            Result('E0102.py', 'Trailing newlines', 'C0305', 23),
+            Result('E0102.py', '''Module name "E0102" doesn't conform to snake_case naming style''', 'C0103', 1),
+            Result('E0102.py', 'Missing module docstring', 'C0111', 1),
+            Result('E0102.py', 'Missing class docstring', 'C0111', 4),
+            Result('E0102.py', 'Missing method docstring', 'C0111', 5),
+            Result('E0102.py', 'Method could be a function', 'R0201', 5),
+            Result('E0102.py', 'method already defined line 5', 'E0102', 9),
+            Result('E0102.py', 'Missing method docstring', 'C0111', 9),
+            Result('E0102.py', 'Method could be a function', 'R0201', 9),
+            Result('E0102.py', 'Too few public methods (1/2)', 'R0903', 4),
+            Result('E0102.py', 'class already defined line 4', 'E0102', 13),
+            Result('E0102.py', 'Missing class docstring', 'C0111', 13),
+            Result('E0102.py', 'Too few public methods (0/2)', 'R0903', 13),
+            Result('E0102.py', 'Missing function docstring', 'C0111', 17),
+            Result('E0102.py', 'function already defined line 17', 'E0102', 21),
+            Result('E0102.py', 'Missing function docstring', 'C0111', 21)
+        ]
+        result = withConfigAndSources(None, sources)
+        self.assertEqual(result, expected_result)
 
     def test_timeout(self):
         self.assertEqual(getTimeout(" 60    second"), 60)
