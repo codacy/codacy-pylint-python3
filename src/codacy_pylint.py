@@ -6,7 +6,6 @@ from subprocess import Popen, PIPE
 import ast
 from itertools import takewhile, dropwhile
 import glob
-from multiprocessing import cpu_count
 import re
 import signal
 from contextlib import contextmanager
@@ -19,11 +18,11 @@ def timeout(time):
     signal.alarm(time)
     yield
 
-defaultTimeout = 16 * 60
+DEFAULT_TIMEOUT = 16 * 60
 def getTimeout(timeoutString):
     l = timeoutString.split()
     if len(l) != 2 or not l[0].isdigit():
-        return defaultTimeout
+        return DEFAULT_TIMEOUT
     elif l[1] == "second" or l[1] == "seconds":
         return int(l[0])
     elif l[1] == "minute" or l[1] == "minutes":
@@ -31,7 +30,7 @@ def getTimeout(timeoutString):
     elif l[1] == "hour" or l[1] == "hours":
         return int(l[0]) * 60 * 60
     else:
-        return defaultTimeout
+        return DEFAULT_TIMEOUT
 
 class Result:
     def __init__(self, filename, message, patternId, line):
@@ -53,10 +52,11 @@ def readJsonFile(path):
         res = json.loads(file.read())
     return res
 
-def runPylint(options, files):
+def runPylint(options, files, cwd=None):
     process = Popen(
         ['python3', '-m','pylint'] + options + files,
-        stdout=PIPE
+        stdout=PIPE,
+        cwd=cwd
     )
     stdout = process.communicate()[0]
     return stdout.decode('utf-8')
@@ -80,7 +80,7 @@ def isPython3(f):
         return True
 
 def parseMessage(message):
-    return re.search('''\[(.+)\(.+\] (.+)''', message).groups()
+    return re.search(r'\[(.+)\(.+\] (.+)', message).groups()
 
 def parseResult(res):
     lines = res.split(os.linesep)
@@ -88,13 +88,13 @@ def parseResult(res):
     def createResults():
         for res in splits:
             (patternId, message) = parseMessage(res[2])
-            yield Result(filename=res[0],message=message,patternId=patternId,line=int(res[1], 10))
+            yield Result(filename=res[0], message=message, patternId=patternId, line=int(res[1], 10))
     return list(createResults())
 
 def walkDirectory(directory):
     def generate():
         for filename in glob.iglob(directory + '**/*.py', recursive=True):
-            res = filename[len(os.path.abspath(directory)) + 1:1]
+            res = os.path.relpath(filename, directory)
             yield res
     return list(generate())
 
@@ -102,11 +102,11 @@ def readConfiguration(configFile, srcDir):
     def allFiles(): return walkDirectory(srcDir)
     try:
         configuration = readJsonFile(configFile)
-        files = [f for f in configuration['files']] if 'files' in configuration else allFiles()
+        files = configuration.get('files') or allFiles()
         tools = [t for t in configuration['tools'] if t['name'] == 'PyLint (Python 3)']
-        if len(tools) > 0:
+        if tools and 'patterns' in tools[0]:
             pylint = tools[0]
-            rules = ['--disable=all','--enable=' + ','.join([p['patternId'] for p in pylint['patterns']])] if 'patterns' in pylint else []
+            rules = ['--disable=all', '--enable=' + ','.join([p['patternId'] for p in pylint.get('patterns') or []])]
         else:
             rules = []
         rules = ['--disable=all','--enable=' + ','.join([p['patternId'] for p in pylint['patterns']])] if 'patterns' in pylint else []
@@ -118,34 +118,33 @@ def readConfiguration(configFile, srcDir):
 def chunks(lst,n):
     return [lst[i:i + n] for i in range(0, len(lst), n)]
 
-def runPylintWith(rules, files):
+def runPylintWith(rules, files, cwd):
     res = runPylint([
         '--output-format=parseable',
         '--load-plugins=pylint_django',
         '--disable=django-installed-checker,django-model-checker',
-        '--load-plugins=pylint_flask',
-        '-j',
-        str(cpu_count())] +
+        '--load-plugins=pylint_flask'] +
         rules,
-        files)
+        files,
+        cwd)
     return parseResult(res)
 
 def runTool(configFile, srcDir):
     (rules, files) = readConfiguration(configFile, srcDir)
     res = []
-    filesWithPath = [f'{srcDir}/{f}' for f in files]
+    filesWithPath = [os.path.join(srcDir,f) for f in files]
     for chunk in chunks(filesWithPath, 10):
-        res.extend(runPylintWith(rules, chunk))
+        res.extend(runPylintWith(rules, chunk, srcDir))
     for result in res:
-        if result.filename.startswith(srcDir + '/'):
-            result.filename = result.filename[len(srcDir) + 1:]
+        if result.filename.startswith(srcDir):
+            result.filename = os.path.relpath(result.filename, srcDir)
     return res
 
 def resultsToJson(results):
     return os.linesep.join([toJson(res) for res in results])
 
 if __name__ == '__main__':
-    with timeout(getTimeout(os.environ['TIMEOUT'])):
+    with timeout(getTimeout(os.environ.get('TIMEOUT') or '')):
         try:
             results = runTool('/.codacyrc', '/src')
             print(resultsToJson(results))

@@ -1,6 +1,6 @@
 FROM python:3.7-slim
 COPY requirements.txt requirements.txt
-RUN pip3 install -r requirements.txt
+RUN pip3 install --no-cache-dir -r requirements.txt
 COPY src/codacy_pylint.py codacy_pylint.py
 COPY src/codacy_pylint_test.py codacy_pylint_test.py
 COPY docs /docs

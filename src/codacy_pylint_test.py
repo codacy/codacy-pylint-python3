@@ -66,7 +66,7 @@ class PyLintTest(unittest.TestCase):
 
     def test_readConfiguration(self):
         with tempfile.TemporaryDirectory() as directory:
-            codacyrcPath = directory + "/.codacyrc"
+            codacyrcPath = os.path.join(directory, ".codacyrc")
             with open(codacyrcPath, "w") as codacyrc:
                 print('{"tools":[{"name":"PyLint (Python 3)","patterns":[{"patternId":"C0111"}]}],"files":["C0111.py"]}', file=codacyrc)
             
@@ -90,13 +90,13 @@ class PyLintTest(unittest.TestCase):
 ##Err: E0711
 raise NotImplemented
 raise NotImplementedError''')]
-        expectedResult = [
+        expected_result = [
             Result(
                 'E0711.py',
                 'NotImplemented raised - should raise NotImplementedError',
                 'E0711',
                 3)]
-        self.assertEqual(withConfigAndSources(config, sources), expectedResult)
+        self.assertEqual(withConfigAndSources(config, sources), expected_result)
 
     def test_E1125(self):
         config = '{"tools":[{"name":"PyLint (Python 3)","patterns":[{"patternId":"E1125"}]}],"files":["E1125.py"]}'
@@ -114,7 +114,7 @@ function(foo)
 ##Err: E1125
 function(1)
 ''')]
-        expectedResult = [
+        expected_result = [
             Result(
                 'E1125.py',
                 "Missing mandatory keyword argument 'foo' in function call",
@@ -126,37 +126,37 @@ function(1)
                 'E1125',
                 12)
             ]
-        self.assertEqual(withConfigAndSources(config, sources), expectedResult)
+        self.assertEqual(withConfigAndSources(config, sources), expected_result)
 
     def test_python3_file(self):
         (config, sources) = python3_file()
-        expectedResult = [Result('E0102.py','method already defined line 5','E0102',9),
-                          Result('E0102.py','class already defined line 4', 'E0102',13),
+        expected_result = [Result('E0102.py','method already defined line 5','E0102',9),
+                          Result('E0102.py','class already defined line 4','E0102',13),
                           Result('E0102.py','function already defined line 17','E0102',21)]
-        self.assertEqual(withConfigAndSources(config, sources), expectedResult)
+        self.assertEqual(withConfigAndSources(config, sources), expected_result)
 
     def test_no_conf(self):
         (config, sources) = python3_file()
-        expectedResult = [Result('__init__.py',f'No module named','F0001',1),
+        expected_result = [Result('__init__.py',f'No module named','F0001',1),
                           Result('E0102.py','method already defined line 5','E0102',9),
                           Result('E0102.py','class already defined line 4','E0102',13),
                           Result('E0102.py','function already defined line 17','E0102',21)]
         result = withConfigAndSources('', sources)
-        self.assertIn(expectedResult[0].message, result[0].message)
-        self.assertEqual(expectedResult[0].filename, result[0].filename)
-        self.assertEqual(expectedResult[0].patternId, result[0].patternId)
-        self.assertEqual(expectedResult[0].line, result[0].line)
+        self.assertIn(expected_result[0].message, result[0].message)
+        self.assertEqual(expected_result[0].filename, result[0].filename)
+        self.assertEqual(expected_result[0].patternId, result[0].patternId)
+        self.assertEqual(expected_result[0].line, result[0].line)
         for i in range(1, len(result)):
-            self.assertEqual(result[i], expectedResult[i])
+            self.assertEqual(result[i], expected_result[i])
 
     def test_timeout(self):
         self.assertEqual(getTimeout(" 60    second"), 60)
         self.assertEqual(getTimeout(" 60    seconds"), 60)
         self.assertEqual(getTimeout("1 minute"), 60)
         self.assertEqual(getTimeout(" 2 minutes"), 120)
-        self.assertEqual(getTimeout("blabla"), defaultTimeout)
-        self.assertEqual(getTimeout("blabla blabla"), defaultTimeout)
-        self.assertEqual(getTimeout("10 blabla"), defaultTimeout)
+        self.assertEqual(getTimeout("blabla"), DEFAULT_TIMEOUT)
+        self.assertEqual(getTimeout("blabla blabla"), DEFAULT_TIMEOUT)
+        self.assertEqual(getTimeout("10 blabla"), DEFAULT_TIMEOUT)
         self.assertEqual(getTimeout("1 hour"), 60 * 60)
         self.assertEqual(getTimeout("1 hours"), 60 * 60)    
 
