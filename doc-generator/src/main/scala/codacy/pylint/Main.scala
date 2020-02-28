@@ -24,7 +24,7 @@ object Main {
     result.get()
   }
 
-  val docsPath = "docs"
+  val docsPath = "../docs"
 
   val version: String = {
     val file = File(docsPath) / "patterns.json"
