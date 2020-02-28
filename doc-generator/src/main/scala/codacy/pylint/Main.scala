@@ -221,8 +221,8 @@ object Main {
             },
             "category" -> category,
           )
-          addPatternsParameters(result, ruleName)
           subcategory.foreach(x => result("subcategory") = x)
+          addPatternsParameters(result, ruleName)
           result
       })
     ),
@@ -230,11 +230,10 @@ object Main {
   )
 
   private def getCategory(name: String) = {
+    val commandInjection = ("Security", Some("CommandInjection"))
     name match {
-      case "W0123" => ("Security", Some("CommandInjection"))
-      case "W0122" => ("Security", Some("CommandInjection"))
-      case "W1509" => ("Security", Some("CommandInjection"))
-      case "W1510" => ("Security", Some("CommandInjection"))
+      case "W0123" => commandInjection
+      case "W0122" => commandInjection
       case _ => ("CodeStyle", None)
     }
   }
