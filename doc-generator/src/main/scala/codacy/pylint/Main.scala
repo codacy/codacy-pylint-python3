@@ -6,6 +6,7 @@ import scala.xml._
 import scala.io.Source
 import ujson._
 
+import scala.collection.mutable
 import sys.process._
 import scala.util.Using
 
@@ -24,7 +25,7 @@ object Main {
     result.get()
   }
 
-  val docsPath = "../docs"
+  val docsPath = "docs"
 
   val version: String = {
     val file = File(docsPath) / "patterns.json"
@@ -202,7 +203,9 @@ object Main {
       "version" -> version,
       "patterns" -> Arr.from(rulesNamesTitlesBodies.map {
         case (ruleName, _, _) =>
-          val result = Obj(
+          val (category, subcategory) = getCategory(ruleName)
+
+          val fields = mutable.LinkedHashMap(
             "patternId" -> ruleName,
             "level" -> {
               ruleName.headOption
@@ -217,14 +220,28 @@ object Main {
                 }
                 .getOrElse(throw new Exception(s"Empty rule name"))
             },
-            "category" -> "CodeStyle"
+            "category" -> category,
           )
+
+          subcategory.foreach(x => fields("subcategory") = x)
+
+          val result = Obj.from(fields)
           addPatternsParameters(result, ruleName)
           result
       })
     ),
     indent = 2
   )
+
+  private def getCategory(name: String) = {
+    name match {
+      case "W0123" => ("Security", Some("CommandInjection"))
+      case "W0122" => ("Security", Some("CommandInjection"))
+      case "W1509" => ("Security", Some("CommandInjection"))
+      case "W1510" => ("Security", Some("CommandInjection"))
+      case _ => ("CodeStyle", None)
+    }
+  }
 
   val description = ujson.write(
     Arr.from(rulesNamesTitlesBodiesPlainText.map {
