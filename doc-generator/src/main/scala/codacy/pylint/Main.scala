@@ -219,7 +219,7 @@ object Main {
                 }
                 .getOrElse(throw new Exception(s"Empty rule name"))
             },
-            "category" -> category,
+            "category" -> category
           )
           subcategory.foreach(x => result("subcategory") = x)
           addPatternsParameters(result, ruleName)
@@ -234,7 +234,7 @@ object Main {
     name match {
       case "W0123" => commandInjection
       case "W0122" => commandInjection
-      case _ => ("CodeStyle", None)
+      case _       => ("CodeStyle", None)
     }
   }
 
