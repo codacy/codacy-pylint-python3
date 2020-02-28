@@ -6,7 +6,6 @@ import scala.xml._
 import scala.io.Source
 import ujson._
 
-import scala.collection.mutable
 import sys.process._
 import scala.util.Using
 
@@ -205,7 +204,7 @@ object Main {
         case (ruleName, _, _) =>
           val (category, subcategory) = getCategory(ruleName)
 
-          val fields = mutable.LinkedHashMap(
+          val result = Obj(
             "patternId" -> ruleName,
             "level" -> {
               ruleName.headOption
@@ -222,11 +221,8 @@ object Main {
             },
             "category" -> category,
           )
-
-          subcategory.foreach(x => fields("subcategory") = x)
-
-          val result = Obj.from(fields)
           addPatternsParameters(result, ruleName)
+          subcategory.foreach(x => result("subcategory") = x)
           result
       })
     ),
