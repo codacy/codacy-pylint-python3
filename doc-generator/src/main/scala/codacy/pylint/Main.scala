@@ -37,9 +37,8 @@ object Main {
   }
 
   val htmlString = Using.resource {
-    val minorVersion = version.split('.').dropRight(1).mkString(".")
     val url = new java.net.URL(
-      s"https://pylint.pycqa.org/en/$minorVersion/technical_reference/features.html"
+      s"https://pylint.pycqa.org/en/v$version/technical_reference/features.html"
     )
     val connection = url.openConnection.asInstanceOf[java.net.HttpURLConnection]
     connection.setRequestProperty("User-agent", "Mozilla/5.0")
