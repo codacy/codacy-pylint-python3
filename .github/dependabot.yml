@@ -1,0 +1,19 @@
+version: 2
+updates:
+- package-ecosystem: pip
+  directory: "/"
+  schedule:
+    interval: daily
+    timezone: Europe/Lisbon
+  open-pull-requests-limit: 10
+  allow:
+  - dependency-type: direct
+  - dependency-type: indirect
+  ignore:
+  - dependency-name: pylint
+    versions:
+    - 2.8.1
+  - dependency-name: pylint-django
+    versions:
+    - 2.4.2
+    - 2.4.3
