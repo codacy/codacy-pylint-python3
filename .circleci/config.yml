@@ -36,7 +36,7 @@ workflows:
             - generate_docs
       - codacy_plugins_test/run:
           name: plugins_test
-          run_multiple_tests: true
+          run_multiple_tests: false
           requires:
             - build_docker_and_test
       - codacy/publish_docker:
