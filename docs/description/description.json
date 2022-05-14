@@ -130,6 +130,11 @@
     "description": "Comparing against a callable, did you omit the parenthesis?. This message is emitted when pylint detects that a comparison with a callable was made, which might suggest that some parenthesis were omitted, resulting in potential unwanted behaviour."
   },
   {
+    "patternId": "W0177",
+    "title": "nan-comparison (W0177)",
+    "description": "Comparison %s should be %s. Used when an expression is compared to NaNvalues like numpy.NaN and float('nan')"
+  },
+  {
     "patternId": "W0102",
     "title": "dangerous-default-value (W0102)",
     "description": "Dangerous default value %s as argument. Used when a mutable value as list or dictionary is detected in a default value for an argument."
@@ -142,7 +147,7 @@
   {
     "patternId": "W0120",
     "title": "useless-else-on-loop (W0120)",
-    "description": "Else clause on loop without a break statement. Loops should only have an else clause if they can exit early with a break statement, otherwise the statements under else should be on the same scope as the loop itself."
+    "description": "Else clause on loop without a break statement, remove the else and de-indent all the code inside it. Loops should only have an else clause if they can exit early with a break statement, otherwise the statements under else should be on the same scope as the loop itself."
   },
   {
     "patternId": "W0106",
@@ -220,11 +225,6 @@
     "description": "Redundant comparison - %s. Used when something is compared against itself."
   },
   {
-    "patternId": "C0144",
-    "title": "non-ascii-name (C0144)",
-    "description": "%s name \"%s\" contains a non-ASCII unicode character. Used when the name contains at least one non-ASCII unicode character."
-  },
-  {
     "patternId": "C0103",
     "title": "invalid-name (C0103)",
     "description": "%s name \"%s\" doesn't conform to %s. Used when the name doesn't conform to naming rules associated to its type (constant, variable, class...).",
@@ -272,25 +272,14 @@
     ]
   },
   {
-    "patternId": "C0102",
-    "title": "blacklisted-name (C0102)",
-    "description": "Black listed name \"%s\". Used when the name is listed in the black list (unauthorized names).",
-    "parameters": [
-      {
-        "name": "bad-names",
-        "description": "Bad variable names which should always be refused, separated by a comma."
-      }
-    ]
-  },
-  {
-    "patternId": "C0122",
-    "title": "misplaced-comparison-constant (C0122)",
-    "description": "Comparison should be %s. Used when the constant is placed on the left side of a comparison. It is usually clearer in intent to place it in the right hand side of the comparison."
-  },
-  {
     "patternId": "C0121",
     "title": "singleton-comparison (C0121)",
-    "description": "Comparison to %s should be %s. Used when an expression is compared to singleton values like True, False or None."
+    "description": "Comparison %s should be %s. Used when an expression is compared to singleton values like True, False or None."
+  },
+  {
+    "patternId": "C0104",
+    "title": "disallowed-name (C0104)",
+    "description": "Disallowed name \"%s\". Used when the name matches bad-names or bad-names-rgxs- (unauthorized names)."
   },
   {
     "patternId": "C0112",
@@ -313,9 +302,14 @@
     "description": "Missing module docstring. Used when a module has no docstring.Empty modules do not require a docstring."
   },
   {
+    "patternId": "C0105",
+    "title": "typevar-name-incorrect-variance (C0105)",
+    "description": "Type variable \"%s\" is %s, use \"%s\" instead. Emitted when a TypeVar name doesn't reflect its type variance. According to PEP8, it is recommended to add suffixes '_co' and '_contra' to the variables used to declare covariant or contravariant behaviour respectively. Invariant (default) variables do not require a suffix. The message is also emitted when invariant variables do have a suffix."
+  },
+  {
     "patternId": "C0123",
     "title": "unidiomatic-typecheck (C0123)",
-    "description": "Using type() instead of isinstance() for a typecheck. The idiomatic way to perform an explicit typecheck in Python is to use isinstance(x, Y) rather than type(x) == Y, type(x) is Y. Though there are unusual situations where these give different results."
+    "description": "Use isinstance() rather than type() for a typecheck. The idiomatic way to perform an explicit typecheck in Python is to use isinstance(x, Y) rather than type(x) == Y, type(x) is Y. Though there are unusual situations where these give different results."
   },
   {
     "patternId": "E0203",
@@ -346,6 +340,11 @@
     "patternId": "E0239",
     "title": "inherit-non-class (E0239)",
     "description": "Inheriting %r, which is not a class. Used when a class inherits from something which is not a class."
+  },
+  {
+    "patternId": "E0243",
+    "title": "invalid-class-object (E0243)",
+    "description": "Invalid __class__ object. Used when an invalid object is assigned to a __class__ property. Only a class is permitted."
   },
   {
     "patternId": "E0238",
@@ -438,6 +437,16 @@
     "description": "__str__ does not return str. Used when a __str__ method returns something which is not a string"
   },
   {
+    "patternId": "W0221",
+    "title": "arguments-differ (W0221)",
+    "description": "%s %s %r method. Used when a method has a different number of arguments than in the implemented interface or in an overridden method. Extra arguments with default values are ignored."
+  },
+  {
+    "patternId": "W0237",
+    "title": "arguments-renamed (W0237)",
+    "description": "%s %s %r method. Used when a method parameter has a different name than in the implemented interface or in an overridden method."
+  },
+  {
     "patternId": "W0212",
     "title": "protected-access (W0212)",
     "description": "Access to a protected member %s of a client class. Used when a protected member (i.e. class member with a name beginning with an underscore) is access outside the class or a descendant of the class where it's defined."
@@ -446,6 +455,11 @@
     "patternId": "W0201",
     "title": "attribute-defined-outside-init (W0201)",
     "description": "Attribute %r defined outside __init__. Used when an instance attribute is defined outside the __init__ method."
+  },
+  {
+    "patternId": "W0240",
+    "title": "subclassed-final-class (W0240)",
+    "description": "Class %r is a subclass of a class decorated with typing.final: %r. Used when a class decorated with typing.final has been subclassed."
   },
   {
     "patternId": "W0232",
@@ -458,14 +472,19 @@
     "description": "Method %r is abstract in class %r but is not overridden. Used when an abstract method (i.e. raise NotImplementedError) is not overridden in concrete class."
   },
   {
+    "patternId": "W0239",
+    "title": "overridden-final-method (W0239)",
+    "description": "Method %r overrides a method decorated with typing.final which is defined in class %r. Used when a method decorated with typing.final has been overridden."
+  },
+  {
     "patternId": "W0236",
     "title": "invalid-overridden-method (W0236)",
     "description": "Method %r was expected to be %r, found it instead as %r. Used when we detect that a method was overridden in a way that does not match its base class which could result in potential bugs at runtime."
   },
   {
-    "patternId": "W0221",
-    "title": "arguments-differ (W0221)",
-    "description": "Parameters differ from %s %r method. Used when a method has a different number of arguments than in the implemented interface or in an overridden method."
+    "patternId": "W0244",
+    "title": "redefined-slots-in-subclass (W0244)",
+    "description": "Redefined slots %r in subclass. Used when a slot is re-defined in a subclass."
   },
   {
     "patternId": "W0222",
@@ -476,6 +495,11 @@
     "patternId": "W0211",
     "title": "bad-staticmethod-argument (W0211)",
     "description": "Static method with %r as first argument. Used when a static method has \"self\" or a value specified in valid- classmethod-first-arg option or valid-metaclass-classmethod-first-arg option as first argument."
+  },
+  {
+    "patternId": "W0238",
+    "title": "unused-private-member (W0238)",
+    "description": "Unused private member `%s.%s`. Emitted when a private member of a class is defined but not used."
   },
   {
     "patternId": "W0235",
@@ -621,7 +645,7 @@
   {
     "patternId": "E0702",
     "title": "raising-bad-type (E0702)",
-    "description": "Raising %s while only classes or instances are allowed. Used when something which is neither a class, an instance or a string is raised (i.e. a TypeError will be raised)."
+    "description": "Raising %s while only classes or instances are allowed. Used when something which is neither a class nor an instance is raised (i.e. a TypeError will be raised)."
   },
   {
     "patternId": "E0710",
@@ -775,6 +799,11 @@
     "description": "Cyclic import (%s). Used when a cyclic import between two or more modules is detected."
   },
   {
+    "patternId": "R0402",
+    "title": "consider-using-from-import (R0402)",
+    "description": "Use 'from %s import %s' instead. Emitted when a submodule of a package is imported and aliased with the same name. E.g., instead of import concurrent.futures as futures use from concurrent import futures"
+  },
+  {
     "patternId": "C0411",
     "title": "wrong-import-order (C0411)",
     "description": "%s should be placed before %s. Used when PEP8 import order is not respected (standard imports first, then third-party libraries, then local imports)"
@@ -850,364 +879,49 @@
     "description": "Used when a message is enabled or disabled by id."
   },
   {
+    "patternId": "E4702",
+    "title": "modified-iterating-dict (E4702)",
+    "description": "Iterated dict '%s' is being modified inside for loop body, iterate through a copy of it instead. Emitted when items are added or removed to a dict being iterated through. Doing so raises a RuntimeError."
+  },
+  {
+    "patternId": "E4703",
+    "title": "modified-iterating-set (E4703)",
+    "description": "Iterated set '%s' is being modified inside for loop body, iterate through a copy of it instead. Emitted when items are added or removed to a set being iterated through. Doing so raises a RuntimeError."
+  },
+  {
+    "patternId": "W4701",
+    "title": "modified-iterating-list (W4701)",
+    "description": "Iterated list '%s' is being modified inside for loop body, consider iterating through a copy of it instead. Emitted when items are added or removed to a list being iterated through. Doing so can result in unexpected behaviour, that is why it is preferred to use a copy of the list."
+  },
+  {
     "patternId": "E1003",
     "title": "bad-super-call (E1003)",
     "description": "Bad first argument %r given to super(). Used when another argument than the current class is given as first argument of the super builtin."
   },
   {
-    "patternId": "E1603",
-    "title": "unpacking-in-except (E1603)",
-    "description": "Implicit unpacking of exceptions is not supported in Python 3. Python3 will not allow implicit unpacking of exceptions in except clauses. See https://www.python.org/dev/peps/pep-3110/"
+    "patternId": "W2402",
+    "title": "non-ascii-file-name (W2402)",
+    "description": "%s name \"%s\" contains a non-ASCII character. PEP 3131 only allows non-ascii identifiers, not file names. Some editors don't support non-ASCII file names properly. Even though Python supports UTF-8 files since Python 3.5 this isn't recommended for interoperability. Further reading: - https://www.python.org/dev/peps/pep-0489/#export-hook-name - https://www.python.org/dev/peps/pep-0672/#confusable-characters-in- identifiers - https://bugs.python.org/issue20485"
   },
   {
-    "patternId": "E1609",
-    "title": "import-star-module-level (E1609)",
-    "description": "Import * only allowed at module level. Used when the import star syntax is used somewhere else than the module level. This message can't be emitted when using Python >= 3.0."
+    "patternId": "C2401",
+    "title": "non-ascii-name (C2401)",
+    "description": "%s name \"%s\" contains a non-ASCII character, consider renaming it. Used when the name contains at least one non-ASCII unicode character. See https://www.python.org/dev/peps/pep-0672/#confusable-characters-in- identifiers for a background why this could be bad. If your programming guideline defines that you are programming in English, then there should be no need for non ASCII characters in Python Names. If not you can simply disable this check."
   },
   {
-    "patternId": "E1610",
-    "title": "non-ascii-bytes-literal (E1610)",
-    "description": "Non-ascii bytes literals not supported in 3.x. Used when non-ascii bytes literals are found in a program. They are no longer supported in Python 3. This message can't be emitted when using Python >= 3.0."
+    "patternId": "C2403",
+    "title": "non-ascii-module-import (C2403)",
+    "description": "%s name \"%s\" contains a non-ASCII character, use an ASCII-only alias for import. Used when the name contains at least one non-ASCII unicode character. See https://www.python.org/dev/peps/pep-0672/#confusable-characters-in- identifiers for a background why this could be bad. If your programming guideline defines that you are programming in English, then there should be no need for non ASCII characters in Python Names. If not you can simply disable this check."
   },
   {
-    "patternId": "E1602",
-    "title": "parameter-unpacking (E1602)",
-    "description": "Parameter unpacking specified. Used when parameter unpacking is specified for a function(Python 3 doesn't allow it)"
+    "patternId": "R1726",
+    "title": "simplifiable-condition (R1726)",
+    "description": "Boolean condition '%s' may be simplified to '%s'. Emitted when a boolean condition is able to be simplified."
   },
   {
-    "patternId": "E1606",
-    "title": "long-suffix (E1606)",
-    "description": "Use of long suffix. Used when \"l\" or \"L\" is used to mark a long integer. This will not work in Python 3, since int and long types have merged. This message can't be emitted when using Python >= 3.0."
-  },
-  {
-    "patternId": "E1608",
-    "title": "old-octal-literal (E1608)",
-    "description": "Use of old octal literal. Used when encountering the old octal syntax, removed in Python 3. To use the new syntax, prepend 0o on the number. This message can't be emitted when using Python >= 3.0."
-  },
-  {
-    "patternId": "E1607",
-    "title": "old-ne-operator (E1607)",
-    "description": "Use of the <> operator. Used when the deprecated \"<>\" operator is used instead of \"!=\". This is removed in Python 3. This message can't be emitted when using Python >= 3.0."
-  },
-  {
-    "patternId": "E1605",
-    "title": "backtick (E1605)",
-    "description": "Use of the `` operator. Used when the deprecated \"``\" (backtick) operator is used instead of the str() function."
-  },
-  {
-    "patternId": "E1604",
-    "title": "old-raise-syntax (E1604)",
-    "description": "Use raise ErrorClass(args) instead of raise ErrorClass, args. Used when the alternate raise syntax 'raise foo, bar' is used instead of 'raise foo(bar)'."
-  },
-  {
-    "patternId": "E1601",
-    "title": "print-statement (E1601)",
-    "description": "print statement used. Used when a print statement is used (print is a function in Python 3)"
-  },
-  {
-    "patternId": "W1652",
-    "title": "deprecated-types-field (W1652)",
-    "description": "Accessing a deprecated fields on the types module. Used when accessing a field on types that has been removed in Python 3."
-  },
-  {
-    "patternId": "W1651",
-    "title": "deprecated-itertools-function (W1651)",
-    "description": "Accessing a deprecated function on the itertools module. Used when accessing a function on itertools that has been removed in Python 3."
-  },
-  {
-    "patternId": "W1649",
-    "title": "deprecated-string-function (W1649)",
-    "description": "Accessing a deprecated function on the string module. Used when accessing a string function that has been deprecated in Python 3."
-  },
-  {
-    "patternId": "W1657",
-    "title": "deprecated-operator-function (W1657)",
-    "description": "Accessing a removed attribute on the operator module. Used when accessing a field on operator module that has been removed in Python 3."
-  },
-  {
-    "patternId": "W1660",
-    "title": "deprecated-sys-function (W1660)",
-    "description": "Accessing a removed attribute on the sys module. Used when accessing a field on sys module that has been removed in Python 3."
-  },
-  {
-    "patternId": "W1658",
-    "title": "deprecated-urllib-function (W1658)",
-    "description": "Accessing a removed attribute on the urllib module. Used when accessing a field on urllib module that has been removed or moved in Python 3."
-  },
-  {
-    "patternId": "W1659",
-    "title": "xreadlines-attribute (W1659)",
-    "description": "Accessing a removed xreadlines attribute. Used when accessing the xreadlines() function on a file stream, removed in Python 3."
-  },
-  {
-    "patternId": "W1623",
-    "title": "metaclass-assignment (W1623)",
-    "description": "Assigning to a class's __metaclass__ attribute. Used when a metaclass is specified by assigning to __metaclass__ (Python 3 specifies the metaclass as a class statement argument)"
-  },
-  {
-    "patternId": "W1622",
-    "title": "next-method-called (W1622)",
-    "description": "Called a next() method on an object. Used when an object's next() method is called (Python 3 uses the next() built-in function)"
-  },
-  {
-    "patternId": "W1620",
-    "title": "dict-iter-method (W1620)",
-    "description": "Calling a dict.iter*() method. Used for calls to dict.iterkeys(), itervalues() or iteritems() (Python 3 lacks these methods)"
-  },
-  {
-    "patternId": "W1621",
-    "title": "dict-view-method (W1621)",
-    "description": "Calling a dict.view*() method. Used for calls to dict.viewkeys(), viewvalues() or viewitems() (Python 3 lacks these methods)"
-  },
-  {
-    "patternId": "W1645",
-    "title": "exception-message-attribute (W1645)",
-    "description": "Exception.message removed in Python 3. Used when the message attribute is accessed on an Exception. Use str(exception) instead."
-  },
-  {
-    "patternId": "W1641",
-    "title": "eq-without-hash (W1641)",
-    "description": "Implementing __eq__ without also implementing __hash__. Used when a class implements __eq__ but not __hash__. In Python 2, objects get object.__hash__ as the default implementation, in Python 3 objects get None as their default __hash__ implementation if they also implement __eq__."
-  },
-  {
-    "patternId": "W1624",
-    "title": "indexing-exception (W1624)",
-    "description": "Indexing exceptions will not work on Python 3. Indexing exceptions will not work on Python 3. Use exception.args[index] instead."
-  },
-  {
-    "patternId": "W1648",
-    "title": "bad-python3-import (W1648)",
-    "description": "Module moved in Python 3. Used when importing a module that no longer exists in Python 3."
-  },
-  {
-    "patternId": "W1625",
-    "title": "raising-string (W1625)",
-    "description": "Raising a string exception. Used when a string exception is raised. This will not work on Python 3."
-  },
-  {
-    "patternId": "W1611",
-    "title": "standarderror-builtin (W1611)",
-    "description": "StandardError built-in referenced. Used when the StandardError built-in function is referenced (missing from Python 3)"
-  },
-  {
-    "patternId": "W1662",
-    "title": "comprehension-escape (W1662)",
-    "description": "Using a variable that was bound inside a comprehension. Emitted when using a variable, that was bound in a comprehension handler, outside of the comprehension itself. On Python 3 these variables will be deleted outside of the comprehension."
-  },
-  {
-    "patternId": "W1661",
-    "title": "exception-escape (W1661)",
-    "description": "Using an exception object that was bound by an except handler. Emitted when using an exception, that was bound in an except handler, outside of the except handler. On Python 3 these exceptions will be deleted once they get out of the except handler."
-  },
-  {
-    "patternId": "W1650",
-    "title": "deprecated-str-translate-call (W1650)",
-    "description": "Using str.translate with deprecated deletechars parameters. Used when using the deprecated deletechars parameters from str.translate. Use re.sub to remove the desired characters"
-  },
-  {
-    "patternId": "W1640",
-    "title": "using-cmp-argument (W1640)",
-    "description": "Using the cmp argument for list.sort / sorted. Using the cmp argument for list.sort or the sorted builtin should be avoided, since it was removed in Python 3. Using either key or functools.cmp_to_key should be preferred."
-  },
-  {
-    "patternId": "W1630",
-    "title": "cmp-method (W1630)",
-    "description": "__cmp__ method defined. Used when a __cmp__ method is defined (method is not used by Python 3)"
-  },
-  {
-    "patternId": "W1614",
-    "title": "coerce-method (W1614)",
-    "description": "__coerce__ method defined. Used when a __coerce__ method is defined (method is not used by Python 3)"
-  },
-  {
-    "patternId": "W1615",
-    "title": "delslice-method (W1615)",
-    "description": "__delslice__ method defined. Used when a __delslice__ method is defined (method is not used by Python 3)"
-  },
-  {
-    "patternId": "W1642",
-    "title": "div-method (W1642)",
-    "description": "__div__ method defined. Used when a __div__ method is defined. Using __truediv__ and setting__div__ = __truediv__ should be preferred.(method is not used by Python 3)"
-  },
-  {
-    "patternId": "W1616",
-    "title": "getslice-method (W1616)",
-    "description": "__getslice__ method defined. Used when a __getslice__ method is defined (method is not used by Python 3)"
-  },
-  {
-    "patternId": "W1628",
-    "title": "hex-method (W1628)",
-    "description": "__hex__ method defined. Used when a __hex__ method is defined (method is not used by Python 3)"
-  },
-  {
-    "patternId": "W1643",
-    "title": "idiv-method (W1643)",
-    "description": "__idiv__ method defined. Used when an __idiv__ method is defined. Using __itruediv__ and setting__idiv__ = __itruediv__ should be preferred.(method is not used by Python 3)"
-  },
-  {
-    "patternId": "W1629",
-    "title": "nonzero-method (W1629)",
-    "description": "__nonzero__ method defined. Used when a __nonzero__ method is defined (method is not used by Python 3)"
-  },
-  {
-    "patternId": "W1627",
-    "title": "oct-method (W1627)",
-    "description": "__oct__ method defined. Used when an __oct__ method is defined (method is not used by Python 3)"
-  },
-  {
-    "patternId": "W1644",
-    "title": "rdiv-method (W1644)",
-    "description": "__rdiv__ method defined. Used when a __rdiv__ method is defined. Using __rtruediv__ and setting__rdiv__ = __rtruediv__ should be preferred.(method is not used by Python 3)"
-  },
-  {
-    "patternId": "W1617",
-    "title": "setslice-method (W1617)",
-    "description": "__setslice__ method defined. Used when a __setslice__ method is defined (method is not used by Python 3)"
-  },
-  {
-    "patternId": "W1601",
-    "title": "apply-builtin (W1601)",
-    "description": "apply built-in referenced. Used when the apply built-in function is referenced (missing from Python 3)"
-  },
-  {
-    "patternId": "W1602",
-    "title": "basestring-builtin (W1602)",
-    "description": "basestring built-in referenced. Used when the basestring built-in function is referenced (missing from Python 3)"
-  },
-  {
-    "patternId": "W1603",
-    "title": "buffer-builtin (W1603)",
-    "description": "buffer built-in referenced. Used when the buffer built-in function is referenced (missing from Python 3)"
-  },
-  {
-    "patternId": "W1604",
-    "title": "cmp-builtin (W1604)",
-    "description": "cmp built-in referenced. Used when the cmp built-in function is referenced (missing from Python 3)"
-  },
-  {
-    "patternId": "W1605",
-    "title": "coerce-builtin (W1605)",
-    "description": "coerce built-in referenced. Used when the coerce built-in function is referenced (missing from Python 3)"
-  },
-  {
-    "patternId": "W1654",
-    "title": "dict-items-not-iterating (W1654)",
-    "description": "dict.items referenced when not iterating. Used when dict.items is referenced in a non-iterating context (returns an iterator in Python 3)"
-  },
-  {
-    "patternId": "W1655",
-    "title": "dict-keys-not-iterating (W1655)",
-    "description": "dict.keys referenced when not iterating. Used when dict.keys is referenced in a non-iterating context (returns an iterator in Python 3)"
-  },
-  {
-    "patternId": "W1656",
-    "title": "dict-values-not-iterating (W1656)",
-    "description": "dict.values referenced when not iterating. Used when dict.values is referenced in a non-iterating context (returns an iterator in Python 3)"
-  },
-  {
-    "patternId": "W1619",
-    "title": "old-division (W1619)",
-    "description": "division w/o __future__ statement. Used for non-floor division w/o a float literal or from __future__ import division (Python 3 returns a float for int division unconditionally)"
-  },
-  {
-    "patternId": "W1606",
-    "title": "execfile-builtin (W1606)",
-    "description": "execfile built-in referenced. Used when the execfile built-in function is referenced (missing from Python 3)"
-  },
-  {
-    "patternId": "W1607",
-    "title": "file-builtin (W1607)",
-    "description": "file built-in referenced. Used when the file built-in function is referenced (missing from Python 3)"
-  },
-  {
-    "patternId": "W1639",
-    "title": "filter-builtin-not-iterating (W1639)",
-    "description": "filter built-in referenced when not iterating. Used when the filter built-in is referenced in a non-iterating context (returns an iterator in Python 3)"
-  },
-  {
-    "patternId": "W1618",
-    "title": "no-absolute-import (W1618)",
-    "description": "import missing `from __future__ import absolute_import`. Used when an import is not accompanied by from __future__ import absolute_import (default behaviour in Python 3)"
-  },
-  {
-    "patternId": "W1632",
-    "title": "input-builtin (W1632)",
-    "description": "input built-in referenced. Used when the input built-in is referenced (backwards-incompatible semantics in Python 3)"
-  },
-  {
-    "patternId": "W1634",
-    "title": "intern-builtin (W1634)",
-    "description": "intern built-in referenced. Used when the intern built-in is referenced (Moved to sys.intern in Python 3)"
-  },
-  {
-    "patternId": "W1608",
-    "title": "long-builtin (W1608)",
-    "description": "long built-in referenced. Used when the long built-in function is referenced (missing from Python 3)"
-  },
-  {
-    "patternId": "W1636",
-    "title": "map-builtin-not-iterating (W1636)",
-    "description": "map built-in referenced when not iterating. Used when the map built-in is referenced in a non-iterating context (returns an iterator in Python 3)"
-  },
-  {
-    "patternId": "W1653",
-    "title": "next-method-defined (W1653)",
-    "description": "next method defined. Used when a next method is defined that would be an iterator in Python 2 but is treated as a normal function in Python 3."
-  },
-  {
-    "patternId": "W1646",
-    "title": "invalid-str-codec (W1646)",
-    "description": "non-text encoding used in str.decode. Used when using str.encode or str.decode with a non-text encoding. Use codecs module to handle arbitrary codecs."
-  },
-  {
-    "patternId": "W1638",
-    "title": "range-builtin-not-iterating (W1638)",
-    "description": "range built-in referenced when not iterating. Used when the range built-in is referenced in a non-iterating context (returns a range in Python 3)"
-  },
-  {
-    "patternId": "W1609",
-    "title": "raw_input-builtin (W1609)",
-    "description": "raw_input built-in referenced. Used when the raw_input built-in function is referenced (missing from Python 3)"
-  },
-  {
-    "patternId": "W1610",
-    "title": "reduce-builtin (W1610)",
-    "description": "reduce built-in referenced. Used when the reduce built-in function is referenced (missing from Python 3)"
-  },
-  {
-    "patternId": "W1626",
-    "title": "reload-builtin (W1626)",
-    "description": "reload built-in referenced. Used when the reload built-in function is referenced (missing from Python 3). You can use instead imp.reload or importlib.reload."
-  },
-  {
-    "patternId": "W1633",
-    "title": "round-builtin (W1633)",
-    "description": "round built-in referenced. Used when the round built-in is referenced (backwards-incompatible semantics in Python 3)"
-  },
-  {
-    "patternId": "W1647",
-    "title": "sys-max-int (W1647)",
-    "description": "sys.maxint removed in Python 3. Used when accessing sys.maxint. Use sys.maxsize instead."
-  },
-  {
-    "patternId": "W1635",
-    "title": "unichr-builtin (W1635)",
-    "description": "unichr built-in referenced. Used when the unichr built-in is referenced (Use chr in Python 3)"
-  },
-  {
-    "patternId": "W1612",
-    "title": "unicode-builtin (W1612)",
-    "description": "unicode built-in referenced. Used when the unicode built-in function is referenced (missing from Python 3)"
-  },
-  {
-    "patternId": "W1613",
-    "title": "xrange-builtin (W1613)",
-    "description": "xrange built-in referenced. Used when the xrange built-in function is referenced (missing from Python 3)"
-  },
-  {
-    "patternId": "W1637",
-    "title": "zip-builtin-not-iterating (W1637)",
-    "description": "zip built-in referenced when not iterating. Used when the zip built-in is referenced in a non-iterating context (returns an iterator in Python 3)"
+    "patternId": "R1727",
+    "title": "condition-evals-to-constant (R1727)",
+    "description": "Boolean condition '%s' will always evaluate to '%s'. Emitted when a boolean condition can be simplified to a constant value."
   },
   {
     "patternId": "R1709",
@@ -1225,14 +939,39 @@
     "description": "Consider merging these isinstance calls to isinstance(%s, (%s)). Used when multiple consecutive isinstance calls can be merged into one."
   },
   {
+    "patternId": "R1731",
+    "title": "consider-using-max-builtin (R1731)",
+    "description": "Consider using '%s' instead of unnecessary if block. Using the max builtin instead of a conditional improves readability and conciseness."
+  },
+  {
+    "patternId": "R1730",
+    "title": "consider-using-min-builtin (R1730)",
+    "description": "Consider using '%s' instead of unnecessary if block. Using the min builtin instead of a conditional improves readability and conciseness."
+  },
+  {
+    "patternId": "R1732",
+    "title": "consider-using-with (R1732)",
+    "description": "Consider using 'with' for resource-allocating operations. Emitted if a resource-allocating assignment or call may be replaced by a 'with' block. By using 'with' the release of the allocated resources is ensured even in the case of an exception."
+  },
+  {
     "patternId": "R1725",
     "title": "super-with-arguments (R1725)",
     "description": "Consider using Python 3 style super() without arguments. Emitted when calling the super() builtin with the current class and instance. On Python 3 these arguments are the default and they can be omitted."
   },
   {
+    "patternId": "R1734",
+    "title": "use-list-literal (R1734)",
+    "description": "Consider using [] instead of list(). Emitted when using list() to create an empty list instead of the literal []. The literal is faster as it avoids an additional function call."
+  },
+  {
     "patternId": "R1717",
     "title": "consider-using-dict-comprehension (R1717)",
     "description": "Consider using a dictionary comprehension. Emitted when we detect the creation of a dictionary using the dict() callable and a transient list. Although there is nothing syntactically wrong with this code, it is hard to read and can be simplified to a dict comprehension.Also it is faster since you don't need to create another transient list"
+  },
+  {
+    "patternId": "R1728",
+    "title": "consider-using-generator (R1728)",
+    "description": "Consider using a generator instead '%s(%s)'. If your container can be large using a generator will bring better performance."
   },
   {
     "patternId": "R1718",
@@ -1263,6 +1002,11 @@
     "patternId": "R1712",
     "title": "consider-swap-variables (R1712)",
     "description": "Consider using tuple unpacking for swapping variables. You do not have to use a temporary variable in order to swap variables. Using \"tuple unpacking\" to directly swap variables makes the intention more clear."
+  },
+  {
+    "patternId": "R1735",
+    "title": "use-dict-literal (R1735)",
+    "description": "Consider using {} instead of dict(). Emitted when using dict() to create an empty dictionary instead of the literal {}. The literal is faster as it avoids an additional function call."
   },
   {
     "patternId": "R1707",
@@ -1307,32 +1051,47 @@
   {
     "patternId": "R1723",
     "title": "no-else-break (R1723)",
-    "description": "Unnecessary \"%s\" after \"break\". Used in order to highlight an unnecessary block of code following an if containing a break statement. As such, it will warn when it encounters an else following a chain of ifs, all of them containing a break statement."
+    "description": "Unnecessary \"%s\" after \"break\", %s. Used in order to highlight an unnecessary block of code following an if containing a break statement. As such, it will warn when it encounters an else following a chain of ifs, all of them containing a break statement."
   },
   {
     "patternId": "R1724",
     "title": "no-else-continue (R1724)",
-    "description": "Unnecessary \"%s\" after \"continue\". Used in order to highlight an unnecessary block of code following an if containing a continue statement. As such, it will warn when it encounters an else following a chain of ifs, all of them containing a continue statement."
+    "description": "Unnecessary \"%s\" after \"continue\", %s. Used in order to highlight an unnecessary block of code following an if containing a continue statement. As such, it will warn when it encounters an else following a chain of ifs, all of them containing a continue statement."
   },
   {
     "patternId": "R1720",
     "title": "no-else-raise (R1720)",
-    "description": "Unnecessary \"%s\" after \"raise\". Used in order to highlight an unnecessary block of code following an if containing a raise statement. As such, it will warn when it encounters an else following a chain of ifs, all of them containing a raise statement."
+    "description": "Unnecessary \"%s\" after \"raise\", %s. Used in order to highlight an unnecessary block of code following an if containing a raise statement. As such, it will warn when it encounters an else following a chain of ifs, all of them containing a raise statement."
   },
   {
     "patternId": "R1705",
     "title": "no-else-return (R1705)",
-    "description": "Unnecessary \"%s\" after \"return\". Used in order to highlight an unnecessary block of code following an if containing a return statement. As such, it will warn when it encounters an else following a chain of ifs, all of them containing a return statement."
+    "description": "Unnecessary \"%s\" after \"return\", %s. Used in order to highlight an unnecessary block of code following an if containing a return statement. As such, it will warn when it encounters an else following a chain of ifs, all of them containing a return statement."
+  },
+  {
+    "patternId": "R1733",
+    "title": "unnecessary-dict-index-lookup (R1733)",
+    "description": "Unnecessary dictionary index lookup, use '%s' instead. Emitted when iterating over the dictionary items (key-item pairs) and accessing the value by index lookup. The value can be accessed directly instead."
   },
   {
     "patternId": "R1721",
     "title": "unnecessary-comprehension (R1721)",
-    "description": "Unnecessary use of a comprehension. Instead of using an identity comprehension, consider using the list, dict or set constructor. It is faster and simpler."
+    "description": "Unnecessary use of a comprehension, use %s instead. Instead of using an identity comprehension, consider using the list, dict or set constructor. It is faster and simpler."
+  },
+  {
+    "patternId": "R1729",
+    "title": "use-a-generator (R1729)",
+    "description": "Use a generator instead '%s(%s)'. Comprehension inside of 'any' or 'all' is unnecessary. A generator would be sufficient and faster."
   },
   {
     "patternId": "R1711",
     "title": "useless-return (R1711)",
     "description": "Useless return at end of function or method. Emitted when a single \"return\" or \"return None\" statement is found at the end of function or method definition. This statement can safely be removed because Python will implicitly return None"
+  },
+  {
+    "patternId": "C1803",
+    "title": "use-implicit-booleaness-not-comparison (C1803)",
+    "description": "'%s' can be simplified to '%s' as an empty sequence is falsey. Used when Pylint detects that collection literal comparison is being used to check for emptiness; Use implicit booleaness insteadof a collection classes; empty collections are considered as false"
   },
   {
     "patternId": "C0113",
@@ -1342,7 +1101,12 @@
   {
     "patternId": "C0201",
     "title": "consider-iterating-dictionary (C0201)",
-    "description": "Consider iterating the dictionary directly instead of calling .keys(). Emitted when the keys of a dictionary are iterated through the .keys() method. It is enough to just iterate through the dictionary itself, as in \"for key in dictionary\"."
+    "description": "Consider iterating the dictionary directly instead of calling .keys(). Emitted when the keys of a dictionary are iterated through the .keys() method or when .keys() is used for a membership check. It is enough to iterate through the dictionary itself, for key in dictionary. For membership checks, if key in dictionary is faster."
+  },
+  {
+    "patternId": "C0206",
+    "title": "consider-using-dict-items (C0206)",
+    "description": "Consider iterating with .items(). Emitted when iterating over the keys of a dictionary and accessing the value by index lookup. Both the key and value can be accessed by iterating using the .items() method of the dictionary instead."
   },
   {
     "patternId": "C0200",
@@ -1350,9 +1114,24 @@
     "description": "Consider using enumerate instead of iterating with range and len. Emitted when code that iterates with range and len is encountered. Such code can be simplified by using the enumerate builtin."
   },
   {
-    "patternId": "C1801",
-    "title": "len-as-condition (C1801)",
+    "patternId": "C1802",
+    "title": "use-implicit-booleaness-not-len (C1802)",
     "description": "Do not use `len(SEQUENCE)` without comparison to determine if a sequence is empty. Used when Pylint detects that len(sequence) is being used without explicit comparison inside a condition to determine if a sequence is empty. Instead of coercing the length to a boolean, either rely on the fact that empty sequences are false or compare the length against a scalar."
+  },
+  {
+    "patternId": "C0209",
+    "title": "consider-using-f-string (C0209)",
+    "description": "Formatting a regular string which could be a f-string. Used when we detect a string that is being formatted with format() or % which could potentially be a f-string. The use of f-strings is preferred. Requires Python 3.6 and py-version >= 3.6."
+  },
+  {
+    "patternId": "C0207",
+    "title": "use-maxsplit-arg (C0207)",
+    "description": "Use %s instead. Emitted when accessing only the first or last element of str.split(). The first and last element can be accessed by using str.split(sep, maxsplit=1)[0] or str.rsplit(sep, maxsplit=1)[-1] instead."
+  },
+  {
+    "patternId": "C0208",
+    "title": "use-sequence-for-iteration (C0208)",
+    "description": "Use a sequence type when iterating over values. When iterating over values, sequence types (e.g., lists, tuples, ranges) are more efficient than sets."
   },
   {
     "patternId": "R0801",
@@ -1382,12 +1161,22 @@
   {
     "patternId": "W1501",
     "title": "bad-open-mode (W1501)",
-    "description": "\"%s\" is not a valid mode for open. Python supports: r, w, a[, x] modes with b, +, and U (only with r) options. See https://docs.python.org/2/library/functions.html#open"
+    "description": "\"%s\" is not a valid mode for open. Python supports: r, w, a[, x] modes with b, +, and U (only with r) options. See https://docs.python.org/3/library/functions.html#open"
   },
   {
     "patternId": "W1508",
     "title": "invalid-envvar-default (W1508)",
     "description": "%s default type is %s. Expected str or None. Env manipulation functions return None or str values. Supplying anything different as a default may cause bugs. See https://docs.python.org/3/library/os.html#os.getenv."
+  },
+  {
+    "patternId": "W1517",
+    "title": "cache-max-size-none (W1517)",
+    "description": "'lru_cache(maxsize=None)' will keep all method args alive indefinitely, including 'self'. By decorating a method with lru_cache the 'self' argument will be linked to the lru_cache function and therefore never garbage collected. Unless your instance will never need to be garbage collected (singleton) it is recommended to refactor code to avoid this pattern or add a maxsize to the cache.The default value for maxsize is 128."
+  },
+  {
+    "patternId": "W1515",
+    "title": "forgotten-debug-statement (W1515)",
+    "description": "Leaving functions creating breakpoints in production code is not recommended. Calls to breakpoint(), sys.breakpointhook() and pdb.set_trace() should be removed from code that is not actively being debugged."
   },
   {
     "patternId": "W1503",
@@ -1405,9 +1194,29 @@
     "description": "Using datetime.time in a boolean context. Using datetime.time in a boolean context can hide subtle bugs when the time they represent matches midnight UTC. This behaviour was fixed in Python 3.5. See https://bugs.python.org/issue13936 for reference. This message can't be emitted when using Python >= 3.5."
   },
   {
+    "patternId": "W1511",
+    "title": "deprecated-argument (W1511)",
+    "description": "Using deprecated argument %s of method %s(). The argument is marked as deprecated and will be removed in the future."
+  },
+  {
+    "patternId": "W1512",
+    "title": "deprecated-class (W1512)",
+    "description": "Using deprecated class %s of module %s. The class is marked as deprecated and will be removed in the future."
+  },
+  {
+    "patternId": "W1513",
+    "title": "deprecated-decorator (W1513)",
+    "description": "Using deprecated decorator %s(). The decorator is marked as deprecated and will be removed in the future."
+  },
+  {
     "patternId": "W1505",
     "title": "deprecated-method (W1505)",
     "description": "Using deprecated method %s(). The method is marked as deprecated and will be removed in a future version of Python. Consider looking for an alternative in the documentation."
+  },
+  {
+    "patternId": "W1514",
+    "title": "unspecified-encoding (W1514)",
+    "description": "Using open without explicitly specifying an encoding. It is better to specify an encoding when opening documents. Using the system default implicitly can create problems on other operating systems. See https://www.python.org/dev/peps/pep-0597/"
   },
   {
     "patternId": "W1509",
@@ -1520,6 +1329,11 @@
     "description": "Quote delimiter %s is inconsistent with the rest of the file. Quote delimiters are not used consistently throughout a module (with allowances made for avoiding unnecessary escaping)."
   },
   {
+    "patternId": "W1406",
+    "title": "redundant-u-string-prefix (W1406)",
+    "description": "The u prefix for strings is no longer necessary in Python >=3.0. Used when we detect a string with a u prefix. These prefixes were necessary in Python 2 to indicate a string was Unicode, but since Python 3.0 strings are Unicode by default."
+  },
+  {
     "patternId": "W1304",
     "title": "unused-format-string-argument (W1304)",
     "description": "Unused format argument %r. Used when a PEP 3101 format string that uses named fields is used with an argument that is not required by the format string."
@@ -1535,9 +1349,19 @@
     "description": "Using an f-string that does not have any interpolated variables. Used when we detect an f-string that does not use any interpolation variables, in which case it can be either a normal string or a bug in the code."
   },
   {
+    "patternId": "W1310",
+    "title": "format-string-without-interpolation (W1310)",
+    "description": "Using formatting for a string that does not have any interpolated variables. Used when we detect a string that does not have any interpolation variables, in which case it can be either a normal string without formatting or a bug in the code."
+  },
+  {
     "patternId": "W1307",
     "title": "invalid-format-index (W1307)",
     "description": "Using invalid lookup key %r in format specifier %r. Used when a PEP 3101 format string uses a lookup specifier ({a[1]}), but the argument passed for formatting doesn't contain or doesn't have that key as an attribute."
+  },
+  {
+    "patternId": "W2101",
+    "title": "useless-with-lock (W2101)",
+    "description": "'%s()' directly created in 'with' has no effect. Used when a new lock instance is created by using with statement which has no effect. Instead, an existing instance should be used to acquire lock."
   },
   {
     "patternId": "E1137",
@@ -1568,6 +1392,11 @@
     "patternId": "E1102",
     "title": "not-callable (E1102)",
     "description": "%s is not callable. Used when an object being called has been inferred to a non callable object."
+  },
+  {
+    "patternId": "E1142",
+    "title": "await-outside-async (E1142)",
+    "description": "'await' should be used within an async function. Emitted when await is used outside an async function."
   },
   {
     "patternId": "E1124",
@@ -1667,7 +1496,7 @@
   {
     "patternId": "W1115",
     "title": "non-str-assignment-to-dunder-name (W1115)",
-    "description": "Non-string value assigned to __name__. Emitted when a non-string vaue is assigned to __name__"
+    "description": "Non-string value assigned to __name__. Emitted when a non-string value is assigned to __name__"
   },
   {
     "patternId": "W1114",
@@ -1682,12 +1511,77 @@
   {
     "patternId": "I1101",
     "title": "c-extension-no-member (I1101)",
-    "description": "%s %r has no %r member%s, but source is unavailable. Consider adding this module to extension-pkg-whitelist if you want to perform analysis based on run-time introspection of living objects. Used when a variable is accessed for non-existent member of C extension. Due to unavailability of source static analysis is impossible, but it may be performed by introspecting living objects in run-time."
+    "description": "%s %r has no %r member%s, but source is unavailable. Consider adding this module to extension-pkg-allow-list if you want to perform analysis based on run-time introspection of living objects. Used when a variable is accessed for non-existent member of C extension. Due to unavailability of source static analysis is impossible, but it may be performed by introspecting living objects in run-time."
+  },
+  {
+    "patternId": "E2502",
+    "title": "bidirectional-unicode (E2502)",
+    "description": "Contains control characters that can permit obfuscated code executed differently than displayed. Bidirectional unicode are typically not displayed characters required to display right-to-left (RTL) script (i.e. Chinese, Japanese, Arabic, Hebrew, ...) correctly. So can you trust this code? Are you sure it displayed correctly in all editors? If you did not write it or your language is not RTL, remove the special characters, as they could be used to trick you into executing code, that does something else than what it looks like. More Information: https://en.wikipedia.org/wiki/Bidirectional_text https://trojansource.codes/"
+  },
+  {
+    "patternId": "E2510",
+    "title": "invalid-character-backspace (E2510)",
+    "description": "Invalid unescaped character backspace, use \"b\" instead. Moves the cursor back, so the character after it will overwrite the character before."
+  },
+  {
+    "patternId": "E2511",
+    "title": "invalid-character-carriage-return (E2511)",
+    "description": "Invalid unescaped character carriage-return, use \"r\" instead. Moves the cursor to the start of line, subsequent characters overwrite the start of the line."
+  },
+  {
+    "patternId": "E2513",
+    "title": "invalid-character-esc (E2513)",
+    "description": "Invalid unescaped character esc, use \"x1B\" instead. Commonly initiates escape codes which allow arbitrary control of the terminal."
+  },
+  {
+    "patternId": "E2514",
+    "title": "invalid-character-nul (E2514)",
+    "description": "Invalid unescaped character nul, use \"0\" instead. Mostly end of input for python."
+  },
+  {
+    "patternId": "E2512",
+    "title": "invalid-character-sub (E2512)",
+    "description": "Invalid unescaped character sub, use \"x1A\" instead. Ctrl+Z “End of text” on Windows. Some programs (such as type) ignore the rest of the file after it."
+  },
+  {
+    "patternId": "E2515",
+    "title": "invalid-character-zero-width-space (E2515)",
+    "description": "Invalid unescaped character zero-width-space, use \"u200B\" instead. Invisible space character could hide real code execution."
+  },
+  {
+    "patternId": "E2501",
+    "title": "invalid-unicode-codec (E2501)",
+    "description": "UTF-16 and UTF-32 aren't backward compatible. Use UTF-8 instead. For compatibility use UTF-8 instead of UTF-16/UTF-32. See also https://bugs.python.org/issue1503789 for a history of this issue. And https://softwareengineering.stackexchange.com/questions/102205/should- utf-16-be-considered-harmful for some possible problems when using UTF-16 for instance."
+  },
+  {
+    "patternId": "C2503",
+    "title": "bad-file-encoding (C2503)",
+    "description": "PEP8 recommends UTF-8 as encoding for Python files. PEP8 recommends UTF-8 default encoding for Python files. See https://www.python.org/dev/peps/pep-0008/#id20"
+  },
+  {
+    "patternId": "W2301",
+    "title": "unnecessary-ellipsis (W2301)",
+    "description": "Unnecessary ellipsis constant. Used when the ellipsis constant is encountered and can be avoided. A line of code consisting of an ellipsis is unnecessary if there is a docstring on the preceding line or if there is a statement in the same scope."
+  },
+  {
+    "patternId": "W2601",
+    "title": "using-f-string-in-unsupported-version (W2601)",
+    "description": "F-strings are not supported by all versions included in the py-version setting. Used when the py-version set by the user is lower than 3.6 and pylint encounters a f-string."
+  },
+  {
+    "patternId": "W2602",
+    "title": "using-final-decorator-in-unsupported-version (W2602)",
+    "description": "typing.final is not supported by all versions included in the py-version setting. Used when the py-version set by the user is lower than 3.8 and pylint encounters a typing.final decorator."
   },
   {
     "patternId": "E0633",
     "title": "unpacking-non-sequence (E0633)",
     "description": "Attempting to unpack a non-sequence%s. Used when something which is not a sequence is used in an unpack assignment"
+  },
+  {
+    "patternId": "E0605",
+    "title": "invalid-all-format (E0605)",
+    "description": "Invalid format for __all__, must be tuple or list. Used when __all__ has an invalid format."
   },
   {
     "patternId": "E0604",
@@ -1712,7 +1606,7 @@
   {
     "patternId": "E0601",
     "title": "used-before-assignment (E0601)",
-    "description": "Using variable %r before assignment. Used when a local variable is accessed before its assignment."
+    "description": "Using variable %r before assignment. Emitted when a local variable is accessed before its assignment took place. Assignments in try blocks are assumed not to have occurred when evaluating associated except/finally blocks. Assignments in except blocks are assumed not to have occurred when evaluating statements outside the block, except when the associated try block contains a return statement."
   },
   {
     "patternId": "W0640",
@@ -1745,11 +1639,6 @@
     "description": "Redefining built-in %r. Used when a variable or function override a built-in."
   },
   {
-    "patternId": "W0623",
-    "title": "redefine-in-handler (W0623)",
-    "description": "Redefining name %r from %s in exception handler. Used when an exception handler assigns the exception to an existing name"
-  },
-  {
     "patternId": "W0621",
     "title": "redefined-outer-name (W0621)",
     "description": "Redefining name %r from outer scope (line %s). Used when a variable's name hides a name defined in the outer scope."
@@ -1767,7 +1656,7 @@
   {
     "patternId": "W0614",
     "title": "unused-wildcard-import (W0614)",
-    "description": "Unused import %s from wildcard import. Used when an imported module or variable is not used from a 'from X import *' style import."
+    "description": "Unused import(s) %s from wildcard import of %s. Used when an imported module or variable is not used from a 'from X import *' style import."
   },
   {
     "patternId": "W0612",

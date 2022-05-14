@@ -1,6 +1,6 @@
 {
   "name": "pylintpython3",
-  "version": "2.6.0",
+  "version": "2.13.8",
   "patterns": [
     {
       "patternId": "E1701",
@@ -159,6 +159,12 @@
       "enabled": false
     },
     {
+      "patternId": "W0177",
+      "level": "Warning",
+      "category": "CodeStyle",
+      "enabled": false
+    },
+    {
       "patternId": "W0102",
       "level": "Warning",
       "category": "CodeStyle",
@@ -269,12 +275,6 @@
       "enabled": false
     },
     {
-      "patternId": "C0144",
-      "level": "Info",
-      "category": "CodeStyle",
-      "enabled": false
-    },
-    {
       "patternId": "C0103",
       "level": "Info",
       "category": "CodeStyle",
@@ -323,25 +323,13 @@
       ]
     },
     {
-      "patternId": "C0102",
-      "level": "Info",
-      "category": "CodeStyle",
-      "enabled": false,
-      "parameters": [
-        {
-          "name": "bad-names",
-          "default": "foo,bar,baz,toto,tutu,tata"
-        }
-      ]
-    },
-    {
-      "patternId": "C0122",
+      "patternId": "C0121",
       "level": "Info",
       "category": "CodeStyle",
       "enabled": false
     },
     {
-      "patternId": "C0121",
+      "patternId": "C0104",
       "level": "Info",
       "category": "CodeStyle",
       "enabled": false
@@ -366,6 +354,12 @@
     },
     {
       "patternId": "C0114",
+      "level": "Info",
+      "category": "CodeStyle",
+      "enabled": false
+    },
+    {
+      "patternId": "C0105",
       "level": "Info",
       "category": "CodeStyle",
       "enabled": false
@@ -411,6 +405,12 @@
       "level": "Error",
       "category": "CodeStyle",
       "enabled": true
+    },
+    {
+      "patternId": "E0243",
+      "level": "Error",
+      "category": "CodeStyle",
+      "enabled": false
     },
     {
       "patternId": "E0238",
@@ -521,6 +521,18 @@
       "enabled": false
     },
     {
+      "patternId": "W0221",
+      "level": "Warning",
+      "category": "CodeStyle",
+      "enabled": true
+    },
+    {
+      "patternId": "W0237",
+      "level": "Warning",
+      "category": "CodeStyle",
+      "enabled": false
+    },
+    {
       "patternId": "W0212",
       "level": "Warning",
       "category": "CodeStyle",
@@ -528,6 +540,12 @@
     },
     {
       "patternId": "W0201",
+      "level": "Warning",
+      "category": "CodeStyle",
+      "enabled": false
+    },
+    {
+      "patternId": "W0240",
       "level": "Warning",
       "category": "CodeStyle",
       "enabled": false
@@ -545,16 +563,22 @@
       "enabled": false
     },
     {
+      "patternId": "W0239",
+      "level": "Warning",
+      "category": "CodeStyle",
+      "enabled": false
+    },
+    {
       "patternId": "W0236",
       "level": "Warning",
       "category": "CodeStyle",
       "enabled": false
     },
     {
-      "patternId": "W0221",
+      "patternId": "W0244",
       "level": "Warning",
       "category": "CodeStyle",
-      "enabled": true
+      "enabled": false
     },
     {
       "patternId": "W0222",
@@ -564,6 +588,12 @@
     },
     {
       "patternId": "W0211",
+      "level": "Warning",
+      "category": "CodeStyle",
+      "enabled": false
+    },
+    {
+      "patternId": "W0238",
       "level": "Warning",
       "category": "CodeStyle",
       "enabled": false
@@ -923,6 +953,12 @@
       "enabled": false
     },
     {
+      "patternId": "R0402",
+      "level": "Info",
+      "category": "CodeStyle",
+      "enabled": false
+    },
+    {
       "patternId": "C0411",
       "level": "Info",
       "category": "CodeStyle",
@@ -1013,434 +1049,56 @@
       "enabled": false
     },
     {
+      "patternId": "E4702",
+      "level": "Error",
+      "category": "CodeStyle",
+      "enabled": false
+    },
+    {
+      "patternId": "E4703",
+      "level": "Error",
+      "category": "CodeStyle",
+      "enabled": false
+    },
+    {
+      "patternId": "W4701",
+      "level": "Warning",
+      "category": "CodeStyle",
+      "enabled": false
+    },
+    {
       "patternId": "E1003",
       "level": "Error",
       "category": "CodeStyle",
       "enabled": true
     },
     {
-      "patternId": "E1603",
-      "level": "Error",
-      "category": "CodeStyle",
-      "enabled": false
-    },
-    {
-      "patternId": "E1609",
-      "level": "Error",
-      "category": "CodeStyle",
-      "enabled": false
-    },
-    {
-      "patternId": "E1610",
-      "level": "Error",
-      "category": "CodeStyle",
-      "enabled": false
-    },
-    {
-      "patternId": "E1602",
-      "level": "Error",
-      "category": "CodeStyle",
-      "enabled": false
-    },
-    {
-      "patternId": "E1606",
-      "level": "Error",
-      "category": "CodeStyle",
-      "enabled": false
-    },
-    {
-      "patternId": "E1608",
-      "level": "Error",
-      "category": "CodeStyle",
-      "enabled": false
-    },
-    {
-      "patternId": "E1607",
-      "level": "Error",
-      "category": "CodeStyle",
-      "enabled": false
-    },
-    {
-      "patternId": "E1605",
-      "level": "Error",
-      "category": "CodeStyle",
-      "enabled": false
-    },
-    {
-      "patternId": "E1604",
-      "level": "Error",
-      "category": "CodeStyle",
-      "enabled": false
-    },
-    {
-      "patternId": "E1601",
-      "level": "Error",
-      "category": "CodeStyle",
-      "enabled": false
-    },
-    {
-      "patternId": "W1652",
+      "patternId": "W2402",
       "level": "Warning",
       "category": "CodeStyle",
       "enabled": false
     },
     {
-      "patternId": "W1651",
-      "level": "Warning",
+      "patternId": "C2401",
+      "level": "Info",
       "category": "CodeStyle",
       "enabled": false
     },
     {
-      "patternId": "W1649",
-      "level": "Warning",
+      "patternId": "C2403",
+      "level": "Info",
       "category": "CodeStyle",
       "enabled": false
     },
     {
-      "patternId": "W1657",
-      "level": "Warning",
+      "patternId": "R1726",
+      "level": "Info",
       "category": "CodeStyle",
       "enabled": false
     },
     {
-      "patternId": "W1660",
-      "level": "Warning",
-      "category": "CodeStyle",
-      "enabled": false
-    },
-    {
-      "patternId": "W1658",
-      "level": "Warning",
-      "category": "CodeStyle",
-      "enabled": false
-    },
-    {
-      "patternId": "W1659",
-      "level": "Warning",
-      "category": "CodeStyle",
-      "enabled": false
-    },
-    {
-      "patternId": "W1623",
-      "level": "Warning",
-      "category": "CodeStyle",
-      "enabled": false
-    },
-    {
-      "patternId": "W1622",
-      "level": "Warning",
-      "category": "CodeStyle",
-      "enabled": false
-    },
-    {
-      "patternId": "W1620",
-      "level": "Warning",
-      "category": "CodeStyle",
-      "enabled": false
-    },
-    {
-      "patternId": "W1621",
-      "level": "Warning",
-      "category": "CodeStyle",
-      "enabled": false
-    },
-    {
-      "patternId": "W1645",
-      "level": "Warning",
-      "category": "CodeStyle",
-      "enabled": false
-    },
-    {
-      "patternId": "W1641",
-      "level": "Warning",
-      "category": "CodeStyle",
-      "enabled": false
-    },
-    {
-      "patternId": "W1624",
-      "level": "Warning",
-      "category": "CodeStyle",
-      "enabled": false
-    },
-    {
-      "patternId": "W1648",
-      "level": "Warning",
-      "category": "CodeStyle",
-      "enabled": false
-    },
-    {
-      "patternId": "W1625",
-      "level": "Warning",
-      "category": "CodeStyle",
-      "enabled": false
-    },
-    {
-      "patternId": "W1611",
-      "level": "Warning",
-      "category": "CodeStyle",
-      "enabled": false
-    },
-    {
-      "patternId": "W1662",
-      "level": "Warning",
-      "category": "CodeStyle",
-      "enabled": false
-    },
-    {
-      "patternId": "W1661",
-      "level": "Warning",
-      "category": "CodeStyle",
-      "enabled": false
-    },
-    {
-      "patternId": "W1650",
-      "level": "Warning",
-      "category": "CodeStyle",
-      "enabled": false
-    },
-    {
-      "patternId": "W1640",
-      "level": "Warning",
-      "category": "CodeStyle",
-      "enabled": false
-    },
-    {
-      "patternId": "W1630",
-      "level": "Warning",
-      "category": "CodeStyle",
-      "enabled": false
-    },
-    {
-      "patternId": "W1614",
-      "level": "Warning",
-      "category": "CodeStyle",
-      "enabled": false
-    },
-    {
-      "patternId": "W1615",
-      "level": "Warning",
-      "category": "CodeStyle",
-      "enabled": false
-    },
-    {
-      "patternId": "W1642",
-      "level": "Warning",
-      "category": "CodeStyle",
-      "enabled": false
-    },
-    {
-      "patternId": "W1616",
-      "level": "Warning",
-      "category": "CodeStyle",
-      "enabled": false
-    },
-    {
-      "patternId": "W1628",
-      "level": "Warning",
-      "category": "CodeStyle",
-      "enabled": false
-    },
-    {
-      "patternId": "W1643",
-      "level": "Warning",
-      "category": "CodeStyle",
-      "enabled": false
-    },
-    {
-      "patternId": "W1629",
-      "level": "Warning",
-      "category": "CodeStyle",
-      "enabled": false
-    },
-    {
-      "patternId": "W1627",
-      "level": "Warning",
-      "category": "CodeStyle",
-      "enabled": false
-    },
-    {
-      "patternId": "W1644",
-      "level": "Warning",
-      "category": "CodeStyle",
-      "enabled": false
-    },
-    {
-      "patternId": "W1617",
-      "level": "Warning",
-      "category": "CodeStyle",
-      "enabled": false
-    },
-    {
-      "patternId": "W1601",
-      "level": "Warning",
-      "category": "CodeStyle",
-      "enabled": false
-    },
-    {
-      "patternId": "W1602",
-      "level": "Warning",
-      "category": "CodeStyle",
-      "enabled": false
-    },
-    {
-      "patternId": "W1603",
-      "level": "Warning",
-      "category": "CodeStyle",
-      "enabled": false
-    },
-    {
-      "patternId": "W1604",
-      "level": "Warning",
-      "category": "CodeStyle",
-      "enabled": false
-    },
-    {
-      "patternId": "W1605",
-      "level": "Warning",
-      "category": "CodeStyle",
-      "enabled": false
-    },
-    {
-      "patternId": "W1654",
-      "level": "Warning",
-      "category": "CodeStyle",
-      "enabled": false
-    },
-    {
-      "patternId": "W1655",
-      "level": "Warning",
-      "category": "CodeStyle",
-      "enabled": false
-    },
-    {
-      "patternId": "W1656",
-      "level": "Warning",
-      "category": "CodeStyle",
-      "enabled": false
-    },
-    {
-      "patternId": "W1619",
-      "level": "Warning",
-      "category": "CodeStyle",
-      "enabled": false
-    },
-    {
-      "patternId": "W1606",
-      "level": "Warning",
-      "category": "CodeStyle",
-      "enabled": false
-    },
-    {
-      "patternId": "W1607",
-      "level": "Warning",
-      "category": "CodeStyle",
-      "enabled": false
-    },
-    {
-      "patternId": "W1639",
-      "level": "Warning",
-      "category": "CodeStyle",
-      "enabled": false
-    },
-    {
-      "patternId": "W1618",
-      "level": "Warning",
-      "category": "CodeStyle",
-      "enabled": false
-    },
-    {
-      "patternId": "W1632",
-      "level": "Warning",
-      "category": "CodeStyle",
-      "enabled": false
-    },
-    {
-      "patternId": "W1634",
-      "level": "Warning",
-      "category": "CodeStyle",
-      "enabled": false
-    },
-    {
-      "patternId": "W1608",
-      "level": "Warning",
-      "category": "CodeStyle",
-      "enabled": false
-    },
-    {
-      "patternId": "W1636",
-      "level": "Warning",
-      "category": "CodeStyle",
-      "enabled": false
-    },
-    {
-      "patternId": "W1653",
-      "level": "Warning",
-      "category": "CodeStyle",
-      "enabled": false
-    },
-    {
-      "patternId": "W1646",
-      "level": "Warning",
-      "category": "CodeStyle",
-      "enabled": false
-    },
-    {
-      "patternId": "W1638",
-      "level": "Warning",
-      "category": "CodeStyle",
-      "enabled": false
-    },
-    {
-      "patternId": "W1609",
-      "level": "Warning",
-      "category": "CodeStyle",
-      "enabled": false
-    },
-    {
-      "patternId": "W1610",
-      "level": "Warning",
-      "category": "CodeStyle",
-      "enabled": false
-    },
-    {
-      "patternId": "W1626",
-      "level": "Warning",
-      "category": "CodeStyle",
-      "enabled": false
-    },
-    {
-      "patternId": "W1633",
-      "level": "Warning",
-      "category": "CodeStyle",
-      "enabled": false
-    },
-    {
-      "patternId": "W1647",
-      "level": "Warning",
-      "category": "CodeStyle",
-      "enabled": false
-    },
-    {
-      "patternId": "W1635",
-      "level": "Warning",
-      "category": "CodeStyle",
-      "enabled": false
-    },
-    {
-      "patternId": "W1612",
-      "level": "Warning",
-      "category": "CodeStyle",
-      "enabled": false
-    },
-    {
-      "patternId": "W1613",
-      "level": "Warning",
-      "category": "CodeStyle",
-      "enabled": false
-    },
-    {
-      "patternId": "W1637",
-      "level": "Warning",
+      "patternId": "R1727",
+      "level": "Info",
       "category": "CodeStyle",
       "enabled": false
     },
@@ -1463,13 +1121,43 @@
       "enabled": false
     },
     {
+      "patternId": "R1731",
+      "level": "Info",
+      "category": "CodeStyle",
+      "enabled": false
+    },
+    {
+      "patternId": "R1730",
+      "level": "Info",
+      "category": "CodeStyle",
+      "enabled": false
+    },
+    {
+      "patternId": "R1732",
+      "level": "Info",
+      "category": "CodeStyle",
+      "enabled": false
+    },
+    {
       "patternId": "R1725",
       "level": "Info",
       "category": "CodeStyle",
       "enabled": false
     },
     {
+      "patternId": "R1734",
+      "level": "Info",
+      "category": "CodeStyle",
+      "enabled": false
+    },
+    {
       "patternId": "R1717",
+      "level": "Info",
+      "category": "CodeStyle",
+      "enabled": false
+    },
+    {
+      "patternId": "R1728",
       "level": "Info",
       "category": "CodeStyle",
       "enabled": false
@@ -1506,6 +1194,12 @@
     },
     {
       "patternId": "R1712",
+      "level": "Info",
+      "category": "CodeStyle",
+      "enabled": false
+    },
+    {
+      "patternId": "R1735",
       "level": "Info",
       "category": "CodeStyle",
       "enabled": false
@@ -1583,13 +1277,31 @@
       "enabled": false
     },
     {
+      "patternId": "R1733",
+      "level": "Info",
+      "category": "CodeStyle",
+      "enabled": false
+    },
+    {
       "patternId": "R1721",
       "level": "Info",
       "category": "CodeStyle",
       "enabled": false
     },
     {
+      "patternId": "R1729",
+      "level": "Info",
+      "category": "CodeStyle",
+      "enabled": false
+    },
+    {
       "patternId": "R1711",
+      "level": "Info",
+      "category": "CodeStyle",
+      "enabled": false
+    },
+    {
+      "patternId": "C1803",
       "level": "Info",
       "category": "CodeStyle",
       "enabled": false
@@ -1607,13 +1319,37 @@
       "enabled": false
     },
     {
+      "patternId": "C0206",
+      "level": "Info",
+      "category": "CodeStyle",
+      "enabled": false
+    },
+    {
       "patternId": "C0200",
       "level": "Info",
       "category": "CodeStyle",
       "enabled": true
     },
     {
-      "patternId": "C1801",
+      "patternId": "C1802",
+      "level": "Info",
+      "category": "CodeStyle",
+      "enabled": false
+    },
+    {
+      "patternId": "C0209",
+      "level": "Info",
+      "category": "CodeStyle",
+      "enabled": false
+    },
+    {
+      "patternId": "C0207",
+      "level": "Info",
+      "category": "CodeStyle",
+      "enabled": false
+    },
+    {
+      "patternId": "C0208",
       "level": "Info",
       "category": "CodeStyle",
       "enabled": false
@@ -1661,6 +1397,18 @@
       "enabled": false
     },
     {
+      "patternId": "W1517",
+      "level": "Warning",
+      "category": "CodeStyle",
+      "enabled": false
+    },
+    {
+      "patternId": "W1515",
+      "level": "Warning",
+      "category": "CodeStyle",
+      "enabled": false
+    },
+    {
       "patternId": "W1503",
       "level": "Warning",
       "category": "CodeStyle",
@@ -1679,7 +1427,31 @@
       "enabled": false
     },
     {
+      "patternId": "W1511",
+      "level": "Warning",
+      "category": "CodeStyle",
+      "enabled": false
+    },
+    {
+      "patternId": "W1512",
+      "level": "Warning",
+      "category": "CodeStyle",
+      "enabled": false
+    },
+    {
+      "patternId": "W1513",
+      "level": "Warning",
+      "category": "CodeStyle",
+      "enabled": false
+    },
+    {
       "patternId": "W1505",
+      "level": "Warning",
+      "category": "CodeStyle",
+      "enabled": false
+    },
+    {
+      "patternId": "W1514",
       "level": "Warning",
       "category": "CodeStyle",
       "enabled": false
@@ -1817,6 +1589,12 @@
       "enabled": false
     },
     {
+      "patternId": "W1406",
+      "level": "Warning",
+      "category": "CodeStyle",
+      "enabled": false
+    },
+    {
       "patternId": "W1304",
       "level": "Warning",
       "category": "CodeStyle",
@@ -1835,10 +1613,22 @@
       "enabled": false
     },
     {
+      "patternId": "W1310",
+      "level": "Warning",
+      "category": "CodeStyle",
+      "enabled": false
+    },
+    {
       "patternId": "W1307",
       "level": "Warning",
       "category": "CodeStyle",
       "enabled": true
+    },
+    {
+      "patternId": "W2101",
+      "level": "Warning",
+      "category": "CodeStyle",
+      "enabled": false
     },
     {
       "patternId": "E1137",
@@ -1875,6 +1665,12 @@
       "level": "Error",
       "category": "CodeStyle",
       "enabled": true
+    },
+    {
+      "patternId": "E1142",
+      "level": "Error",
+      "category": "CodeStyle",
+      "enabled": false
     },
     {
       "patternId": "E1124",
@@ -2015,7 +1811,85 @@
       "enabled": false
     },
     {
+      "patternId": "E2502",
+      "level": "Error",
+      "category": "CodeStyle",
+      "enabled": false
+    },
+    {
+      "patternId": "E2510",
+      "level": "Error",
+      "category": "CodeStyle",
+      "enabled": false
+    },
+    {
+      "patternId": "E2511",
+      "level": "Error",
+      "category": "CodeStyle",
+      "enabled": false
+    },
+    {
+      "patternId": "E2513",
+      "level": "Error",
+      "category": "CodeStyle",
+      "enabled": false
+    },
+    {
+      "patternId": "E2514",
+      "level": "Error",
+      "category": "CodeStyle",
+      "enabled": false
+    },
+    {
+      "patternId": "E2512",
+      "level": "Error",
+      "category": "CodeStyle",
+      "enabled": false
+    },
+    {
+      "patternId": "E2515",
+      "level": "Error",
+      "category": "CodeStyle",
+      "enabled": false
+    },
+    {
+      "patternId": "E2501",
+      "level": "Error",
+      "category": "CodeStyle",
+      "enabled": false
+    },
+    {
+      "patternId": "C2503",
+      "level": "Info",
+      "category": "CodeStyle",
+      "enabled": false
+    },
+    {
+      "patternId": "W2301",
+      "level": "Warning",
+      "category": "CodeStyle",
+      "enabled": false
+    },
+    {
+      "patternId": "W2601",
+      "level": "Warning",
+      "category": "CodeStyle",
+      "enabled": false
+    },
+    {
+      "patternId": "W2602",
+      "level": "Warning",
+      "category": "CodeStyle",
+      "enabled": false
+    },
+    {
       "patternId": "E0633",
+      "level": "Error",
+      "category": "CodeStyle",
+      "enabled": false
+    },
+    {
+      "patternId": "E0605",
       "level": "Error",
       "category": "CodeStyle",
       "enabled": false
@@ -2082,12 +1956,6 @@
     },
     {
       "patternId": "W0622",
-      "level": "Warning",
-      "category": "CodeStyle",
-      "enabled": true
-    },
-    {
-      "patternId": "W0623",
       "level": "Warning",
       "category": "CodeStyle",
       "enabled": true

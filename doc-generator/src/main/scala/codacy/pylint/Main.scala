@@ -45,22 +45,23 @@ object Main {
     Source.fromInputStream(connection.getInputStream)
   }(_.mkString)
 
-  val html = XML.loadString(htmlString.replace(
-    "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">",
-    "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />"
-  ))
+  val html = XML.loadString(
+    htmlString
+      .replace(
+        "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">",
+        "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />"
+      )
+      .replace("&copy;", ""))
 
   val rules = for {
-    ths <- html \\ "th"
-    th <- ths
-    name <- th.find(_.hasClass("field-name"))
-  } yield name.text
+    dts <- html \\ "dt"
+    dt <- dts
+  } yield dt.text
 
   val bodies = for {
-    tds <- html \\ "td"
-    td <- tds
-    name <- td.find(_.hasClass("field-body"))
-  } yield name
+    dds <- html \\ "dd"
+    dd <- dds
+  } yield dd
 
   val pattern = """.*\((.+)\).*""".r
 
