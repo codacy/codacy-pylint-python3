@@ -2,6 +2,7 @@
 <checkstyle version="4.3">
     <file name="test.py">
         <error source="C0114" line="1" message="Missing module docstring" severity="info" />
+        <error source="E5110" line="1" message="Django was not configured. For more information run pylint --load-plugins=pylint_django --help-msg=django-not-configured" severity="info" />
         <error source="W0611" line="1" message="Unused import requests" severity="warning" />
     </file>
 </checkstyle>

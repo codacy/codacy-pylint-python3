@@ -3,6 +3,7 @@
     <file name="E0103.py">
         <error source="E0103" line="7" message="'break' not properly in loop" severity="error" />
         <error source="W0101" line="9" message="Unreachable code" severity="warning" />
+        <error source="E5110" line="1" message="Django was not configured. For more information run pylint --load-plugins=pylint_django --help-msg=django-not-configured" severity="info" />
         <error source="E0103" line="13" message="'continue' not properly in loop" severity="error" />
     </file>
 </checkstyle>
