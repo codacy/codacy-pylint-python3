@@ -131,7 +131,7 @@ function(1)
     def test_no_conf(self):
         (_, sources) = python3_file()
         result = withConfigAndSources(None, sources)
-        self.assertEqual(len(result), 16)
+        self.assertEqual(len(result), 15)
 
     def test_timeout(self):
         self.assertEqual(getTimeout("60"), 60)
