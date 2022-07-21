@@ -2,20 +2,19 @@ package codacy.pylint
 
 import better.files.File
 
-import scala.xml._
-import scala.io.Source
 import ujson._
 
 import sys.process._
-import scala.util.Using
 import scala.util.chaining._
+
+import net.ruippeixotog.scalascraper.browser.JsoupBrowser
+import net.ruippeixotog.scalascraper.scraper.ContentExtractors.elementList
+import net.ruippeixotog.scalascraper.dsl.DSL.deepFunctorOps
+import net.ruippeixotog.scalascraper.dsl.DSL._
+import net.ruippeixotog.scalascraper.dsl.DSL.Extract._
 
 object Main {
   val blacklist = Set("E0401")
-
-  implicit class NodeOps(val node: Node) extends AnyVal {
-    def hasClass(cls: String): Boolean = node \@ "class" == cls
-  }
 
   def toMarkdown(html: String): String = {
     val result =
@@ -36,39 +35,47 @@ object Main {
     }.get
   }
 
-  val htmlString = Using.resource {
-    val minorVersion = version.split('.').dropRight(1).mkString(".")
-    val url = new java.net.URL(
-      s"https://pylint.pycqa.org/en/$minorVersion/technical_reference/features.html"
-    )
-    val connection = url.openConnection.asInstanceOf[java.net.HttpURLConnection]
-    connection.setRequestProperty("User-agent", "Mozilla/5.0")
-    Source.fromInputStream(connection.getInputStream)
-  }(_.mkString)
+  val doc = JsoupBrowser().get(
+    s"https://pylint.pycqa.org/en/v$version/user_guide/checkers/features.html"
+  )
+  val basic = (doc >> elementList("#basic-checker-messages")) ++
+    (doc >> elementList("#classes-checker-messages")) ++
+    (doc >> elementList("#design-checker-messages")) ++
+    (doc >> elementList("#exceptions-checker-messages")) ++
+    (doc >> elementList("#format-checker-messages")) ++
+    (doc >> elementList("#imports-checker-messages")) ++
+    (doc >> elementList("#lambda-expressions-checker-messages")) ++
+    (doc >> elementList("#logging-checker-messages")) ++
+    (doc >> elementList("#metrics-checker-messages")) ++
+    (doc >> elementList("#miscellaneous-checker-messages")) ++
+    (doc >> elementList("#modified-iteration-checker-messages")) ++
+    (doc >> elementList("#newstyle-checker-messages")) ++
+    (doc >> elementList("#nonascii-checker-messages")) ++
+    (doc >> elementList("#refactoring-checker-messages")) ++
+    (doc >> elementList("#similarities-checker-messages")) ++
+    (doc >> elementList("#spelling-checker-messages")) ++
+    (doc >> elementList("#stdlib-checker-messages")) ++
+    (doc >> elementList("#string-checker-messages")) ++
+    (doc >> elementList("#threading-checker-messages")) ++
+    (doc >> elementList("#typecheck-checker-messages")) ++
+    (doc >> elementList("#unicode-checker-messages")) ++
+    (doc >> elementList("#unnecessary-ellipsis-checker-messages")) ++
+    (doc >> elementList("#unsupported-version-checker-messages")) ++
+    (doc >> elementList("#variables-checker-messages"))
 
-  val html = XML.loadString(htmlString)
-
-  val rules = for {
-    ths <- html \\ "th"
-    th <- ths
-    name <- th.find(_.hasClass("field-name"))
-  } yield name.text
-
-  val bodies = for {
-    tds <- html \\ "td"
-    td <- tds
-    name <- td.find(_.hasClass("field-body"))
-  } yield name
+  val rules: List[String] = (basic >> "dl" >> elementList("dt") >> text).flatten
+  val descriptions: List[String] =
+    (basic >> "dl" >> elementList("dd") >> text).flatten
 
   val pattern = """.*\((.+)\).*""".r
 
-  val rulesNamesTitlesBodies = rules.zip(bodies).collect {
+  val rulesNamesTitlesBodies = rules.zip(descriptions).collect {
     case (rule @ pattern(ruleName), body) if !blacklist.contains(ruleName) =>
       (ruleName, rule.stripSuffix(":"), body)
   }
 
   val rulesNamesTitlesBodiesMarkdown = rulesNamesTitlesBodies.map {
-    case (name, title, body) => (name, title, toMarkdown(body.toString))
+    case (name, title, body) => (name, title, toMarkdown(body))
   }
 
   def makePlainText(title: String, body: String): (String, String) = {
@@ -83,7 +90,7 @@ object Main {
 
   val rulesNamesTitlesBodiesPlainText = rulesNamesTitlesBodies.map {
     case (name, title, body) =>
-      val (newTitle, newBody) = makePlainText(title, body.text)
+      val (newTitle, newBody) = makePlainText(title, body)
       (name, newTitle, newBody)
   }
 
