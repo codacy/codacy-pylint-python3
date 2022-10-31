@@ -7,4 +7,4 @@ pylint-common==0.2.5
 pylint-celery==0.3
 SaltPyLint==2020.9.28
 jsonpickle==2.2.0
-asttokens==2.0.8
+asttokens==2.1.0
