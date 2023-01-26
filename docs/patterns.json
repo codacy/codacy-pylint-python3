@@ -1,6 +1,6 @@
 {
   "name": "pylintpython3",
-  "version": "2.14.5",
+  "version": "2.15.10",
   "patterns": [
     {
       "patternId": "E0103",
@@ -611,7 +611,7 @@
       "enabled": false
     },
     {
-      "patternId": "W0235",
+      "patternId": "W0246",
       "level": "Warning",
       "category": "CodeStyle",
       "enabled": false
@@ -761,10 +761,10 @@
       "enabled": true
     },
     {
-      "patternId": "E0703",
+      "patternId": "E0705",
       "level": "Error",
       "category": "CodeStyle",
-      "enabled": true
+      "enabled": false
     },
     {
       "patternId": "E0711",
@@ -917,7 +917,7 @@
       "enabled": false
     },
     {
-      "patternId": "W0402",
+      "patternId": "W4901",
       "level": "Warning",
       "category": "CodeStyle",
       "enabled": false
@@ -1433,25 +1433,25 @@
       "enabled": false
     },
     {
-      "patternId": "W1511",
+      "patternId": "W4903",
       "level": "Warning",
       "category": "CodeStyle",
       "enabled": false
     },
     {
-      "patternId": "W1512",
+      "patternId": "W4904",
       "level": "Warning",
       "category": "CodeStyle",
       "enabled": false
     },
     {
-      "patternId": "W1513",
+      "patternId": "W4905",
       "level": "Warning",
       "category": "CodeStyle",
       "enabled": false
     },
     {
-      "patternId": "W1505",
+      "patternId": "W4902",
       "level": "Warning",
       "category": "CodeStyle",
       "enabled": false
@@ -1673,6 +1673,12 @@
       "enabled": true
     },
     {
+      "patternId": "E1143",
+      "level": "Error",
+      "category": "CodeStyle",
+      "enabled": false
+    },
+    {
       "patternId": "E1142",
       "level": "Error",
       "category": "CodeStyle",
@@ -1698,12 +1704,6 @@
     },
     {
       "patternId": "E1129",
-      "level": "Error",
-      "category": "CodeStyle",
-      "enabled": false
-    },
-    {
-      "patternId": "E1140",
       "level": "Error",
       "category": "CodeStyle",
       "enabled": false
