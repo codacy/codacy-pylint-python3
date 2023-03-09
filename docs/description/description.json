@@ -482,6 +482,11 @@
     "description": "Class %r is a subclass of a class decorated with typing.final: %r Used when a class decorated with typing.final has been subclassed."
   },
   {
+    "patternId": "W0213",
+    "title": "implicit-flag-alias (W0213)",
+    "description": "Flag member %(overlap)s shares bit positions with %(sources)s Used when multiple integer values declared within an enum.IntFlag class share a common bit position."
+  },
+  {
     "patternId": "W0223",
     "title": "abstract-method (W0223)",
     "description": "Method %r is abstract in class %r but is not overridden in child class %r Used when an abstract method (i.e. raise NotImplementedError) is not overridden in concrete class."
@@ -1671,7 +1676,7 @@
   {
     "patternId": "W0602",
     "title": "global-variable-not-assigned (W0602)",
-    "description": "Using global for %r but no assignment is done Used when a variable is defined through the \"global\" statement but no assignment to this variable is done."
+    "description": "Using global for %r but no assignment is done When a variable defined in the global scope is modified in an inner scope, the 'global' keyword is required in the inner scope only if there is an assignment operation done in the inner scope."
   },
   {
     "patternId": "W0631",
@@ -1681,11 +1686,11 @@
   {
     "patternId": "W0603",
     "title": "global-statement (W0603)",
-    "description": "Using the global statement Used when you use the \"global\" statement to update a global variable. Pylint just try to discourage this usage. That doesn't mean you cannot use it !"
+    "description": "Using the global statement Used when you use the \"global\" statement to update a global variable. Pylint discourages its usage. That doesn't mean you cannot use it!"
   },
   {
     "patternId": "W0604",
     "title": "global-at-module-level (W0604)",
-    "description": "Using the global statement at the module level Used when you use the \"global\" statement at the module level since it has no effect"
+    "description": "Using the global statement at the module level Used when you use the \"global\" statement at the module level since it has no effect."
   }
 ]

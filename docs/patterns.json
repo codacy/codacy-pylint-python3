@@ -1,6 +1,6 @@
 {
   "name": "pylintpython3",
-  "version": "2.16.4",
+  "version": "2.17.0",
   "patterns": [
     {
       "patternId": "E0103",
@@ -570,6 +570,12 @@
     },
     {
       "patternId": "W0240",
+      "level": "Warning",
+      "category": "CodeStyle",
+      "enabled": false
+    },
+    {
+      "patternId": "W0213",
       "level": "Warning",
       "category": "CodeStyle",
       "enabled": false
