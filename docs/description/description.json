@@ -57,7 +57,7 @@
   {
     "patternId": "E0106",
     "title": "return-arg-in-generator (E0106)",
-    "description": "Return with argument inside generator Used when a \"return\" statement with an argument is found outside in a generator function or method (e.g. with some \"yield\" statements). This message can't be emitted when using Python >= 3.3."
+    "description": "Return with argument inside generator Used when a \"return\" statement with an argument is found in a generator function or method (e.g. with some \"yield\" statements). This message can't be emitted when using Python >= 3.3."
   },
   {
     "patternId": "E0113",
@@ -98,6 +98,11 @@
     "patternId": "W0150",
     "title": "lost-exception (W0150)",
     "description": "%s statement in finally block may swallow exception Used when a break or a return statement is found inside the finally clause of a try...finally block: the exceptions raised in the try clause will be silently swallowed instead of being re-raised."
+  },
+  {
+    "patternId": "W0134",
+    "title": "return-in-finally (W0134)",
+    "description": "'return' shadowed by the 'finally' clause. Emitted when a 'return' statement is found in a 'finally' block. This will overwrite the return value of a function and should be avoided."
   },
   {
     "patternId": "W0199",
@@ -187,7 +192,7 @@
   {
     "patternId": "W0107",
     "title": "unnecessary-pass (W0107)",
-    "description": "Unnecessary pass statement Used when a \"pass\" statement that can be avoided is encountered."
+    "description": "Unnecessary pass statement Used when a \"pass\" statement can be removed without affecting the behaviour of the code."
   },
   {
     "patternId": "W0101",
@@ -941,7 +946,7 @@
   {
     "patternId": "R1726",
     "title": "simplifiable-condition (R1726)",
-    "description": "Boolean condition '%s' may be simplified to '%s' Emitted when a boolean condition is able to be simplified."
+    "description": "Boolean condition \"%s\" may be simplified to \"%s\" Emitted when a boolean condition is able to be simplified."
   },
   {
     "patternId": "R1727",
@@ -1119,14 +1124,24 @@
     "description": "Useless return at end of function or method Emitted when a single \"return\" or \"return None\" statement is found at the end of function or method definition. This statement can safely be removed because Python will implicitly return None"
   },
   {
-    "patternId": "C1803",
-    "title": "use-implicit-booleaness-not-comparison (C1803)",
-    "description": "'%s' can be simplified to '%s' as an empty %s is falsey Used when Pylint detects that collection literal comparison is being used to check for emptiness; Use implicit booleaness instead of a collection classes; empty collections are considered as false"
+    "patternId": "C1804",
+    "title": "use-implicit-booleaness-not-comparison-to-string (C1804)",
+    "description": "\"%s\" can be simplified to \"%s\", if it is striclty a string, as an empty string is falsey Empty string are considered false in a boolean context. Following this check blindly in weakly typed code base can create hard to debug issues. If the value can be something else that is falsey but not a string (for example None, an empty sequence, or 0) the code will not be equivalent."
   },
   {
-    "patternId": "C0113",
-    "title": "unneeded-not (C0113)",
-    "description": "Consider changing \"%s\" to \"%s\" Used when a boolean expression contains an unneeded negation."
+    "patternId": "C1803",
+    "title": "use-implicit-booleaness-not-comparison (C1803)",
+    "description": "\"%s\" can be simplified to \"%s\", if it is strictly a sequence, as an empty %s is falsey Empty sequences are considered false in a boolean context. Following this check blindly in weakly typed code base can create hard to debug issues. If the value can be something else that is falsey but not a sequence (for example None, an empty string, or 0) the code will not be equivalent."
+  },
+  {
+    "patternId": "C1805",
+    "title": "use-implicit-booleaness-not-comparison-to-zero (C1805)",
+    "description": "\"%s\" can be simplified to \"%s\", if it is strictly an int, as 0 is falsey 0 is considered false in a boolean context. Following this check blindly in weakly typed code base can create hard to debug issues. If the value can be something else that is falsey but not an int (for example None, an empty string, or an empty sequence) the code will not be equivalent."
+  },
+  {
+    "patternId": "C0117",
+    "title": "unnecessary-negation (C0117)",
+    "description": "Consider changing \"%s\" to \"%s\" Used when a boolean expression contains an unneeded negation, e.g. when two negation operators cancel each other out."
   },
   {
     "patternId": "C0201",
@@ -1146,12 +1161,12 @@
   {
     "patternId": "C1802",
     "title": "use-implicit-booleaness-not-len (C1802)",
-    "description": "Do not use `len(SEQUENCE)` without comparison to determine if a sequence is empty Used when Pylint detects that len(sequence) is being used without explicit comparison inside a condition to determine if a sequence is empty. Instead of coercing the length to a boolean, either rely on the fact that empty sequences are false or compare the length against a scalar."
+    "description": "Do not use `len(SEQUENCE)` without comparison to determine if a sequence is empty Empty sequences are considered false in a boolean context. You can either remove the call to 'len' (if not x) or compare the length against a scalar (if len(x) > 1)."
   },
   {
     "patternId": "C0209",
     "title": "consider-using-f-string (C0209)",
-    "description": "Formatting a regular string which could be a f-string Used when we detect a string that is being formatted with format() or % which could potentially be a f-string. The use of f-strings is preferred. Requires Python 3.6 and py-version >= 3.6."
+    "description": "Formatting a regular string which could be an f-string Used when we detect a string that is being formatted with format() or % which could potentially be an f-string. The use of f-strings is preferred. Requires Python 3.6 and py-version >= 3.6."
   },
   {
     "patternId": "C0207",
@@ -1534,6 +1549,11 @@
     "description": "Value '%s' is unsubscriptable Emitted when a subscripted value doesn't support subscription (i.e. doesn't define __getitem__ method or __class_getitem__ for a class)."
   },
   {
+    "patternId": "W1117",
+    "title": "kwarg-superseded-by-positional-arg (W1117)",
+    "description": "%r will be included in %r since a positional-only parameter with this name already exists Emitted when a function is called with a keyword argument that has the same name as a positional-only parameter and the function contains a keyword variadic parameter dict."
+  },
+  {
     "patternId": "W1113",
     "title": "keyword-arg-before-vararg (W1113)",
     "description": "Keyword argument before variable positional arguments list in the definition of %s function When defining a keyword argument before variable positional arguments, one can end up in having multiple values passed for the aforementioned parameter in case the method is called with keyword arguments."
@@ -1566,7 +1586,7 @@
   {
     "patternId": "W2601",
     "title": "using-f-string-in-unsupported-version (W2601)",
-    "description": "F-strings are not supported by all versions included in the py-version setting Used when the py-version set by the user is lower than 3.6 and pylint encounters a f-string."
+    "description": "F-strings are not supported by all versions included in the py-version setting Used when the py-version set by the user is lower than 3.6 and pylint encounters an f-string."
   },
   {
     "patternId": "W2602",
