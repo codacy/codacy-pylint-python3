@@ -1,6 +1,6 @@
 {
   "name": "pylintpython3",
-  "version": "2.17.5",
+  "version": "3.0.2",
   "patterns": [
     {
       "patternId": "E0103",
@@ -121,6 +121,12 @@
       "level": "Warning",
       "category": "CodeStyle",
       "enabled": true
+    },
+    {
+      "patternId": "W0134",
+      "level": "Warning",
+      "category": "CodeStyle",
+      "enabled": false
     },
     {
       "patternId": "W0199",
@@ -1337,13 +1343,25 @@
       "enabled": false
     },
     {
+      "patternId": "C1804",
+      "level": "Info",
+      "category": "CodeStyle",
+      "enabled": false
+    },
+    {
       "patternId": "C1803",
       "level": "Info",
       "category": "CodeStyle",
       "enabled": false
     },
     {
-      "patternId": "C0113",
+      "patternId": "C1805",
+      "level": "Info",
+      "category": "CodeStyle",
+      "enabled": false
+    },
+    {
+      "patternId": "C0117",
       "level": "Info",
       "category": "CodeStyle",
       "enabled": false
@@ -1831,6 +1849,12 @@
     {
       "patternId": "E1136",
       "level": "Error",
+      "category": "CodeStyle",
+      "enabled": false
+    },
+    {
+      "patternId": "W1117",
+      "level": "Warning",
       "category": "CodeStyle",
       "enabled": false
     },
