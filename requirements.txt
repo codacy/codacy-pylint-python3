@@ -5,7 +5,7 @@ Flask==3.0.0
 pylint-flask==0.6
 pylint-common==0.2.5
 pylint-celery==0.3
-SaltPyLint==2023.8.3
+SaltPyLint==2024.2.5
 jsonpickle==3.0.2
 asttokens==2.4.1
 pylint-beam==0.1.2
