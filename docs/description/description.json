@@ -633,6 +633,11 @@
     ]
   },
   {
+    "patternId": "R0917",
+    "title": "too-many-positional (R0917)",
+    "description": "Too many positional arguments in a function call. Will be implemented in https://github.com/pylint- dev/pylint/issues/9099,msgid/symbol pair reserved for compatibility with ruff, see https://github.com/astral-sh/ruff/issues/8946."
+  },
+  {
     "patternId": "R0904",
     "title": "too-many-public-methods (R0904)",
     "description": "Too many public methods (%s/%s) Used when class has too many public methods, try to reduce this to get a simpler (and so easier to use) class."
@@ -1114,6 +1119,11 @@
     "description": "Unnecessary use of a comprehension, use %s instead. Instead of using an identity comprehension, consider using the list, dict or set constructor. It is faster and simpler."
   },
   {
+    "patternId": "R1737",
+    "title": "use-yield-from (R1737)",
+    "description": "Use 'yield from' directly instead of yielding each element one by one Yielding directly from the iterator is faster and arguably cleaner code than yielding each element one by one in the loop."
+  },
+  {
     "patternId": "R1729",
     "title": "use-a-generator (R1729)",
     "description": "Use a generator instead '%s(%s)' Comprehension inside of 'any', 'all', 'max', 'min' or 'sum' is unnecessary. A generator would be sufficient and faster."
@@ -1257,6 +1267,11 @@
     "patternId": "W4903",
     "title": "deprecated-argument (W4903)",
     "description": "Using deprecated argument %s of method %s() The argument is marked as deprecated and will be removed in the future."
+  },
+  {
+    "patternId": "W4906",
+    "title": "deprecated-attribute (W4906)",
+    "description": "Using deprecated attribute %r The attribute is marked as deprecated and will be removed in the future."
   },
   {
     "patternId": "W4904",
