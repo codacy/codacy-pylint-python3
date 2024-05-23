@@ -9,4 +9,4 @@ SaltPyLint==2024.2.5
 jsonpickle==3.0.3
 asttokens==2.4.1
 pylint-beam==0.1.2
-pylint-pytest==1.1.7
+pylint-pytest==1.1.8
