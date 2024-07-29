@@ -190,6 +190,11 @@
     "description": "String statement has no effect Used when a string is used as a statement (which of course has no effect). This is a particular case of W0104 with its own message so you can easily disable it if you're using those strings as documentation, instead of comments."
   },
   {
+    "patternId": "W0135",
+    "title": "contextmanager-generator-missing-cleanup (W0135)",
+    "description": "The context used in function %r will not be exited. Used when a contextmanager is used inside a generator function and the cleanup is not handled."
+  },
+  {
     "patternId": "W0107",
     "title": "unnecessary-pass (W0107)",
     "description": "Unnecessary pass statement Used when a \"pass\" statement can be removed without affecting the behaviour of the code."
@@ -1632,6 +1637,11 @@
     "patternId": "E0611",
     "title": "no-name-in-module (E0611)",
     "description": "No name %r in module %r Used when a name cannot be found in a module."
+  },
+  {
+    "patternId": "E0606",
+    "title": "possibly-used-before-assignment (E0606)",
+    "description": "Possibly using variable %r before assignment Emitted when a local variable is accessed before its assignment took place in both branches of an if/else switch."
   },
   {
     "patternId": "E0602",
