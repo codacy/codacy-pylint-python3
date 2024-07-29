@@ -1,6 +1,6 @@
 {
   "name": "pylintpython3",
-  "version": "3.1.0",
+  "version": "3.2.6",
   "patterns": [
     {
       "patternId": "E0103",
@@ -229,6 +229,12 @@
       "level": "Warning",
       "category": "CodeStyle",
       "enabled": true
+    },
+    {
+      "patternId": "W0135",
+      "level": "Warning",
+      "category": "CodeStyle",
+      "enabled": false
     },
     {
       "patternId": "W0107",
@@ -1950,6 +1956,12 @@
     },
     {
       "patternId": "E0611",
+      "level": "Error",
+      "category": "CodeStyle",
+      "enabled": false
+    },
+    {
+      "patternId": "E0606",
       "level": "Error",
       "category": "CodeStyle",
       "enabled": false
