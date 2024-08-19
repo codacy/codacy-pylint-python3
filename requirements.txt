@@ -1,12 +1,12 @@
-pylint==3.0.3
-Django==5.0.1
+pylint==3.2.6
+Django==5.0.7
 pylint-django==2.5.5
-Flask==3.0.0
+Flask==3.0.3
 pylint-flask==0.6
 pylint-common==0.2.5
 pylint-celery==0.3
 SaltPyLint==2024.2.5
-jsonpickle==3.0.2
+jsonpickle==3.0.3
 asttokens==2.4.1
 pylint-beam==0.1.2
 pylint-pytest==1.1.7
