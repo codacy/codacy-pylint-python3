@@ -27,7 +27,7 @@
   {
     "patternId": "E0108",
     "title": "duplicate-argument-name (E0108)",
-    "description": "Duplicate argument name %s in function definition Duplicate argument names in function definitions are syntax errors."
+    "description": "Duplicate argument name %r in function definition Duplicate argument names in function definitions are syntax errors."
   },
   {
     "patternId": "E0101",
@@ -397,6 +397,11 @@
     "description": "Method %r should have \"self\" as first argument Used when a method has an attribute different the \"self\" as first argument. This is considered as an error since this is a so common convention that you shouldn't break it!"
   },
   {
+    "patternId": "E0245",
+    "title": "declare-non-slot (E0245)",
+    "description": "No such name %r in __slots__ Raised when a type annotation on a class is absent from the list of names in __slots__, and __slots__ does not contain a __dict__ entry."
+  },
+  {
     "patternId": "E0302",
     "title": "unexpected-special-method-signature (E0302)",
     "description": "The special method %r expects %s param(s), %d %s given Emitted when a special method was defined with an invalid number of parameters. If it has too few or too many, it might not work at all."
@@ -479,7 +484,7 @@
   {
     "patternId": "W0212",
     "title": "protected-access (W0212)",
-    "description": "Access to a protected member %s of a client class Used when a protected member (i.e. class member with a name beginning with an underscore) is access outside the class or a descendant of the class where it's defined."
+    "description": "Access to a protected member %s of a client class Used when a protected member (i.e. class member with a name beginning with an underscore) is accessed outside the class or a descendant of the class where it's defined."
   },
   {
     "patternId": "W0201",
@@ -639,8 +644,8 @@
   },
   {
     "patternId": "R0917",
-    "title": "too-many-positional (R0917)",
-    "description": "Too many positional arguments in a function call. Will be implemented in https://github.com/pylint- dev/pylint/issues/9099,msgid/symbol pair reserved for compatibility with ruff, see https://github.com/astral-sh/ruff/issues/8946."
+    "title": "too-many-positional-arguments (R0917)",
+    "description": "Too many positional arguments (%s/%s) Used when a function has too many positional arguments."
   },
   {
     "patternId": "R0904",
@@ -685,7 +690,7 @@
   {
     "patternId": "E0710",
     "title": "raising-non-exception (E0710)",
-    "description": "Raising a new style class which doesn't inherit from BaseException Used when a new style class which doesn't inherit from BaseException is raised."
+    "description": "Raising a class which doesn't inherit from BaseException Used when a class which doesn't inherit from BaseException is raised."
   },
   {
     "patternId": "E0704",
@@ -1139,14 +1144,14 @@
     "description": "Useless return at end of function or method Emitted when a single \"return\" or \"return None\" statement is found at the end of function or method definition. This statement can safely be removed because Python will implicitly return None"
   },
   {
-    "patternId": "C1804",
-    "title": "use-implicit-booleaness-not-comparison-to-string (C1804)",
-    "description": "\"%s\" can be simplified to \"%s\", if it is striclty a string, as an empty string is falsey Empty string are considered false in a boolean context. Following this check blindly in weakly typed code base can create hard to debug issues. If the value can be something else that is falsey but not a string (for example None, an empty sequence, or 0) the code will not be equivalent."
-  },
-  {
     "patternId": "C1803",
     "title": "use-implicit-booleaness-not-comparison (C1803)",
     "description": "\"%s\" can be simplified to \"%s\", if it is strictly a sequence, as an empty %s is falsey Empty sequences are considered false in a boolean context. Following this check blindly in weakly typed code base can create hard to debug issues. If the value can be something else that is falsey but not a sequence (for example None, an empty string, or 0) the code will not be equivalent."
+  },
+  {
+    "patternId": "C1804",
+    "title": "use-implicit-booleaness-not-comparison-to-string (C1804)",
+    "description": "\"%s\" can be simplified to \"%s\", if it is strictly a string, as an empty string is falsey Empty string are considered false in a boolean context. Following this check blindly in weakly typed code base can create hard to debug issues. If the value can be something else that is falsey but not a string (for example None, an empty sequence, or 0) the code will not be equivalent."
   },
   {
     "patternId": "C1805",
@@ -1604,9 +1609,29 @@
     "description": "Unnecessary ellipsis constant Used when the ellipsis constant is encountered and can be avoided. A line of code consisting of an ellipsis is unnecessary if there is a docstring on the preceding line or if there is a statement in the same scope."
   },
   {
+    "patternId": "W2605",
+    "title": "using-assignment-expression-in-unsupported-version (W2605)",
+    "description": "Assignment expression is not supported by all versions included in the py-version setting Used when the py-version set by the user is lower than 3.8 and pylint encounters an assignment expression (walrus) operator."
+  },
+  {
+    "patternId": "W2603",
+    "title": "using-exception-groups-in-unsupported-version (W2603)",
+    "description": "Exception groups are not supported by all versions included in the py-version setting Used when the py-version set by the user is lower than 3.11 and pylint encounters except* or ExceptionGroup`."
+  },
+  {
     "patternId": "W2601",
     "title": "using-f-string-in-unsupported-version (W2601)",
     "description": "F-strings are not supported by all versions included in the py-version setting Used when the py-version set by the user is lower than 3.6 and pylint encounters an f-string."
+  },
+  {
+    "patternId": "W2604",
+    "title": "using-generic-type-syntax-in-unsupported-version (W2604)",
+    "description": "Generic type syntax (PEP 695) is not supported by all versions included in the py-version setting Used when the py-version set by the user is lower than 3.12 and pylint encounters generic type syntax."
+  },
+  {
+    "patternId": "W2606",
+    "title": "using-positional-only-args-in-unsupported-version (W2606)",
+    "description": "Positional-only arguments are not supported by all versions included in the py-version setting Used when the py-version set by the user is lower than 3.8 and pylint encounters positional-only arguments."
   },
   {
     "patternId": "W2602",
