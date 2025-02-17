@@ -98,7 +98,7 @@ object Main {
     case (r, t, b) =>
       (
         File(docsPath) / "description" / s"$r.md",
-        s"""# $t
+        s"""# ${t.split("-").map(_.capitalize).mkString(" ")}
            |
            |$b""".stripMargin
       )
