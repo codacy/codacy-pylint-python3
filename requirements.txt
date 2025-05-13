@@ -1,7 +1,7 @@
 pylint==3.3.6
 Django==5.1.7
 pylint-django==2.6.1
-Flask==3.1.0
+Flask==3.1.1
 pylint-flask==0.6
 pylint-common==0.2.5
 pylint-celery==0.3
