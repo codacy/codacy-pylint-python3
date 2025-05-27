@@ -12,3 +12,7 @@ __pycache__
 .mypy_cache
 *~
 .*.swp
+
+
+#Ignore vscode AI rules
+.github/copilot-instructions.md
