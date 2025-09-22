@@ -9,7 +9,6 @@ import scala.util.chaining._
 
 import net.ruippeixotog.scalascraper.browser.JsoupBrowser
 import net.ruippeixotog.scalascraper.scraper.ContentExtractors.elementList
-import net.ruippeixotog.scalascraper.dsl.DSL.deepFunctorOps
 import net.ruippeixotog.scalascraper.dsl.DSL._
 import net.ruippeixotog.scalascraper.dsl.DSL.Extract._
 
@@ -80,8 +79,8 @@ object Main {
 
   def makePlainText(title: String, body: String): (String, String) = {
     val newLines = body.linesIterator.toList match {
-      case title :: secondLine :: rest =>
-        title.stripSuffix(".") + "." :: secondLine.capitalize :: rest
+      case firstLine :: secondLine :: rest =>
+        firstLine.stripSuffix(".") + "." :: secondLine.capitalize :: rest
       case lines => lines
     }
     val descriptionText = newLines.mkString(" ")
