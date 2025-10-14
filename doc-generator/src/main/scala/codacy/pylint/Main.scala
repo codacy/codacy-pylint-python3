@@ -185,7 +185,6 @@ object Main {
   val defaultPatterns = Set(
     "C0123",
     "C0200",
-    "C0303",
     "E0100",
     "E0101",
     "E0102",
