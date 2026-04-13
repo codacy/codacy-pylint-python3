@@ -206,7 +206,7 @@ def readConfiguration(configFile, srcDir):
         configuration = readJsonFile(configFile)
         files = configuration.get('files') or allFiles()
         tools = [t for t in configuration['tools'] if t['name'] == 'pylintpython3']
-        if tools and 'patterns' in tools[0]:
+        if tools and tools[0].get('patterns'):
             pylint = tools[0]
             rules = ['--disable=all', '--enable=' + ','.join([p['patternId'] for p in pylint.get('patterns') or []])]
             rcfile = pyconfigString(parametersFromJson(pylint))
