@@ -1,4 +1,4 @@
-FROM python:3.13-alpine3.22
+FROM python:3.14-alpine3.23
 COPY requirements.txt ./
 RUN pip3 install --no-cache-dir -r requirements.txt
 COPY docs /docs
