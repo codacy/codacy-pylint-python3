@@ -1,6 +1,6 @@
 {
   "name": "pylintpython3",
-  "version": "4.0.5",
+  "version": "4.0.8",
   "patterns": [
     {
       "patternId": "E0100",
